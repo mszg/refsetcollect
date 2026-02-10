@@ -1,0 +1,241 @@
+#name	species	division	taxonomy_id	assembly	assembly_accession	genebuild	variation	microarray	pan_compara	peptide_compara	genome_alignments	other_alignments	core_db	species_id
+Actinidia chinensis	actinidia_chinensis	EnsemblPlants	1590841	Red5_PS1_1.69.0	GCA_003024255.1	2018-04ENA	N	N	N	Y	Y	N	actinidia_chinensis_core_62_115_1	1	
+Aegilops tauschii	aegilops_tauschii	EnsemblPlants	200361	Aet v4.0	GCA_002575655.1	2017-10-UCD/2017-10	N	N	N	Y	Y	Y	aegilops_tauschii_core_62_115_3	1	
+Aegilops umbellulata	aegilops_umbellulata	EnsemblPlants	4491	TA1851	GCA_032464435.1	TA1851.0	N	N	N	Y	Y	N	aegilops_umbellulata_core_62_115_1	1	
+Amborella trichopoda	amborella_trichopoda	EnsemblPlants	13333	AMTR1.0	GCA_000471905.1	2014-01-AGD	N	N	Y	Y	Y	Y	amborella_trichopoda_core_62_115_1	1	
+Ananas comosus	ananas_comosus	EnsemblPlants	4615	F153	GCA_902162155.1	2019-10-UIL/2019-10	N	N	N	Y	Y	N	ananas_comosus_core_62_115_1	1	
+Arabidopsis halleri	arabidopsis_halleri	EnsemblPlants	63677	Ahal2.2	GCA_900078215.1	2016-09-UZH/2016-09	N	N	N	Y	Y	Y	arabidopsis_halleri_core_62_115_1	1	
+Arabidopsis lyrata	arabidopsis_lyrata	EnsemblPlants	81972	v.1.0	GCA_000004255.1	2008-12-JGI/2008-12	N	N	N	Y	Y	Y	arabidopsis_lyrata_core_62_115_10	1	
+Arabidopsis thaliana	arabidopsis_thaliana	EnsemblPlants	3702	TAIR10	GCA_000001735.1	Araport11	Y	N	Y	Y	Y	Y	arabidopsis_thaliana_core_62_115_11	1	
+Arabis alpina	arabis_alpina	EnsemblPlants	50452	A_alpina_V4	GCA_000733195.1	2014-08-TRANSNET/2014-08	N	N	N	Y	Y	N	arabis_alpina_core_62_115_1	1	
+Arachis hypogaea	arachis_hypogaea	EnsemblPlants	3818	arahy.Tifrunner.gnm2.J5K5	GCA_003086295.3	arahyvTifrunnervgnm2vJ5K5.0	N	N	N	Y	Y	N	arachis_hypogaea_core_62_115_1	1	
+Asparagus officinalis	asparagus_officinalis	EnsemblPlants	4686	Aspof.V1	GCA_001876935.1	2019-11-UniversityofGeorgia/2019-11	N	N	N	Y	Y	N	asparagus_officinalis_core_62_115_1	1	
+Avena atlantica CC7277	avena_atlantica_gca910589765v1cm	EnsemblPlants	366594	Avena_atlantica_CC7277_v1_assembly	GCA_910589765.1	AvenaatlanticaCC7277v1assembly.0	N	N	N	N	N	N	avena_atlantica_gca910589765v1cm_core_62_115_1	1	
+Avena eriantha BYU132	avena_eriantha_gca910589775v1cm	EnsemblPlants	146534	Avena_eriantha_BYU132_v1_assembly	GCA_910589775.1	AvenaerianthaBYU132v1assembly.0	N	N	N	N	N	N	avena_eriantha_gca910589775v1cm_core_62_115_1	1	
+Avena insularis BYU209	avena_insularis_gca910574615v1cm	EnsemblPlants	283872	GCA910574615v1	GCA_910574615.1	GCA910574615v1.0	N	N	N	N	N	N	avena_insularis_gca910574615v1cm_core_62_115_1	1	
+Avena longiglumis CN58138	avena_longiglumis_gca910589755v1cm	EnsemblPlants	4500	GCA910589755v1	GCA_910589755.1	GCA910589755v1.0	N	N	N	N	N	N	avena_longiglumis_gca910589755v1cm_core_62_115_1	1	
+Avena sativa OT3098	avena_sativa_ot3098	EnsemblPlants	4498	Oat_OT3098_v2	GCA_022788535.1	2022-07-Ensembl	N	N	N	Y	Y	N	avena_sativa_ot3098_core_62_115_1	1	
+Avena sativa Sang	avena_sativa_sang	EnsemblPlants	4498	Asativa_sang.v1.1	GCA_910574605.1	2022-07-Ensembl	N	N	N	Y	Y	N	avena_sativa_sang_core_62_115_1	1	
+Beta vulgaris	beta_vulgaris	EnsemblPlants	3555	RefBeet-1.2.2	GCA_000511025.2	2015-07-BOKU	N	N	N	Y	Y	Y	beta_vulgaris_core_62_115_2	1	
+Brachypodium distachyon	brachypodium_distachyon	EnsemblPlants	15368	Brachypodium_distachyon_v3.0	GCA_000005505.4	2018-01-JGI/2018-01	Y	N	Y	Y	Y	Y	brachypodium_distachyon_core_62_115_4	1	
+Brassica juncea	brassica_juncea	EnsemblPlants	3707	ASM1870372v1	GCA_018703725.1	2022-03-hu	N	N	N	Y	Y	N	brassica_juncea_core_62_115_1	1	
+Brassica napus	brassica_napus	EnsemblPlants	3708	AST_PRJEB5043_v1	GCA_000751015.1	2015-09-GSC	N	N	N	Y	Y	Y	brassica_napus_core_62_115_1	1	
+Brassica oleracea	brassica_oleracea	EnsemblPlants	109376	BOL	GCA_000695525.1	2014-05-CanSeq/2014-05	N	N	N	Y	Y	Y	brassica_oleracea_core_62_115_1	1	
+Brassica rapa	brassica_rapa	EnsemblPlants	3711	Brapa_1.0	GCA_000309985.1	2012-03-IVFCAAS/2012-05	N	N	N	N	N	Y	brassica_rapa_core_62_115_1	1	
+Brassica rapa R-o-18	brassica_rapa_ro18	EnsemblPlants	1813537	SCU_BraROA_2.3	GCA_017639395.1	2021-04-MBGP/2021-04	N	N	N	Y	Y	N	brassica_rapa_ro18_core_62_115_1	1	
+Brassica rapa Z1	brassica_rapa_z1	EnsemblPlants	3711	brapa_z1_v2	GCA_900412535.3	2023-05-Genoscope	N	N	N	N	N	N	brassica_rapa_z1_core_62_115_1	1	
+Cajanus cajan (pigeon pea) - GCA_000340665.1	cajanus_cajan	EnsemblPlants	3821	C.cajan_V1.0	GCA_000340665.1	2020-12-IIPG/2020-12	N	N	N	Y	Y	N	cajanus_cajan_core_62_115_1	1	
+Camelina sativa	camelina_sativa	EnsemblPlants	90675	Cs	GCA_000633955.1	2020-02-Cs_genes_V2/2020-02	N	N	N	Y	Y	N	camelina_sativa_core_62_115_1	1	
+Cannabis sativa female	cannabis_sativa_female	EnsemblPlants	3483	cs10	GCA_900626175.1	2020-02-CS10/2020-02	N	N	N	Y	Y	N	cannabis_sativa_female_core_62_115_1	1	
+Capsicum annuum	capsicum_annuum	EnsemblPlants	4072	ASM51225v2	GCA_000512255.2	2017-11-ENA/2017-11	N	N	N	Y	Y	N	capsicum_annuum_core_62_115_2	1	
+Chara braunii	chara_braunii	EnsemblPlants	69332	Cbr_1.0	GCA_003427395.1	2018-10-KanazawaUniversity/2018-10	N	N	N	Y	N	N	chara_braunii_core_62_115_1	1	
+Chenopodium quinoa	chenopodium_quinoa	EnsemblPlants	63459	ASM168347v1	GCA_001683475.1	2020-07-maker/2020-07	N	N	N	Y	Y	N	chenopodium_quinoa_core_62_115_1	1	
+Chlamydomonas reinhardtii	chlamydomonas_reinhardtii	EnsemblPlants	3055	Chlamydomonas_reinhardtii_v5.5	GCA_000002595.3	2018-01-JGI/2018-01	N	N	Y	Y	Y	Y	chlamydomonas_reinhardtii_core_62_115_3	1	
+Chondrus crispus	chondrus_crispus	EnsemblPlants	2769	ASM35022v2	GCA_000350225.2	2015-09-Genoscope	N	N	N	Y	Y	N	chondrus_crispus_core_62_115_1	1	
+Citrullus lanatus	citrullus_lanatus	EnsemblPlants	3654	Cla97_v1	GCA_000238415.2	2020-02-Cla97/2020-02	N	N	N	Y	Y	N	citrullus_lanatus_core_62_115_1	1	
+Citrus clementina	citrus_clementina	EnsemblPlants	85681	Citrus_clementina_v1.0	GCA_000493195.1	2013-11-ENA/2013-11	N	N	N	Y	Y	N	citrus_clementina_core_62_115_1	1	
+Coffea canephora	coffea_canephora	EnsemblPlants	49390	AUK_PRJEB4211_v1	GCA_900059795.1	2015-09-ENA/2015-09	N	N	N	Y	Y	N	coffea_canephora_core_62_115_1	1	
+Corchorus capsularis	corchorus_capsularis	EnsemblPlants	210143	CCACVL1_1.0	GCA_001974805.1	2017-02-BJRI/2017-02	N	N	N	Y	Y	Y	corchorus_capsularis_core_62_115_1	1	
+Corylus avellana	corylus_avellana	EnsemblPlants	13451	CavTom2PMs-1.0	GCA_901000735.2	2021-03-HWG/2021-03	N	N	N	Y	Y	N	corylus_avellana_core_62_115_1	1	
+Corymbia citriodora	corymbia_citriodora	EnsemblPlants	360336	Ccitriodora_v2_1	GCA_014858505.1	v2.1	N	N	N	Y	Y	N	corymbia_citriodora_core_62_115_1	1	
+Cucumis melo	cucumis_melo	EnsemblPlants	3656	Melonv4	GCA_902497455.1	2020-02-melonomics/2022-09	N	N	N	Y	Y	N	cucumis_melo_core_62_115_1	1	
+Cucumis sativus	cucumis_sativus	EnsemblPlants	3659	ASM407v2	GCA_000004075.2	2014-10-BGI/2014-10	N	N	N	Y	Y	Y	cucumis_sativus_core_62_115_2	1	
+Cyanidioschyzon merolae	cyanidioschyzon_merolae	EnsemblPlants	280699	ASM9120v1	GCA_000091205.1	2019-12-NIG	N	N	Y	Y	Y	N	cyanidioschyzon_merolae_core_62_115_1	1	
+Cynara cardunculus	cynara_cardunculus	EnsemblPlants	59895	CcrdV1	GCA_001531365.1	2018-04-ENA/2018-04	N	N	N	Y	Y	N	cynara_cardunculus_core_62_115_1	1	
+Daucus carota	daucus_carota	EnsemblPlants	79200	ASM162521v1	GCA_001625215.1	2016-06-USDA/2016-06	N	N	N	Y	Y	Y	daucus_carota_core_62_115_1	1	
+Digitaria exilis	digitaria_exilis	EnsemblPlants	1010633	Fonio_CM05836	GCA_902859565.1	2021-01-KAUST	N	N	N	Y	Y	N	digitaria_exilis_core_62_115_1	1	
+Dioscorea rotundata	dioscorea_rotundata	EnsemblPlants	55577	TDr96_F1_v2_PseudoChromosome	GCA_009730915.1	2020-06-v2.0/2020-06	N	N	N	Y	Y	N	dioscorea_rotundata_core_62_115_3	1	
+Echinochloa crus-galli	echinochloa_crusgalli	EnsemblPlants	90397	ec_v3	GCA_020466025.1	2021-12-ZU	N	N	N	Y	Y	N	echinochloa_crusgalli_core_62_115_1	1	
+Eragrostis curvula	eragrostis_curvula	EnsemblPlants	38414	CERZOS_E.curvula1.0	GCA_007726485.1	2019-09-CERZOSCONICET/2019-09	N	N	N	Y	Y	N	eragrostis_curvula_core_62_115_1	1	
+Eragrostis tef	eragrostis_tef	EnsemblPlants	110835	Salk_teff_dabbi_3.0	GCA_024500355.1	2022-07-Salk	N	N	N	Y	Y	N	eragrostis_tef_core_62_115_2	1	
+Eucalyptus grandis	eucalyptus_grandis	EnsemblPlants	71139	Egrandis1_0	GCA_000612305.1	2017-09-Geneglob/2017-09	N	N	N	Y	Y	N	eucalyptus_grandis_core_62_115_1	1	
+Eutrema salsugineum	eutrema_salsugineum	EnsemblPlants	72664	Eutsalg1_0	GCA_000478725.1	2013-11-JointGenomeInstitute/2013-11	N	N	N	Y	Y	Y	eutrema_salsugineum_core_62_115_1	1	
+Ficus carica	ficus_carica	EnsemblPlants	3494	UNIPI_FiCari_1.0	GCA_009761775.1	2021-03-UNIPI/2021-03	N	N	N	Y	Y	N	ficus_carica_core_62_115_1	1	
+Fraxinus excelsior	fraxinus_excelsior	EnsemblPlants	38873	BATG-0.5	GCA_900149125.1	2022-07-QMUL	N	N	N	Y	Y	N	fraxinus_excelsior_core_62_115_1	1	
+Galdieria sulphuraria	galdieria_sulphuraria	EnsemblPlants	130081	ASM34128v1	GCA_000341285.1	2013-02-GsGP/2013-02	N	N	N	Y	Y	N	galdieria_sulphuraria_core_62_115_1	1	
+Glycine max	glycine_max	EnsemblPlants	3847	Glycine_max_v2.1	GCA_000004515.4	2018-08-JGI/2018-08	N	N	N	Y	Y	Y	glycine_max_core_62_115_4	1	
+Glycine soja (Wild soybean)	glycine_soja	EnsemblPlants	3848	ASM419377v2	GCA_004193775.2	ASM419377v2.0	N	N	N	Y	Y	Y	glycine_soja_core_62_115_1	1	
+Gossypium raimondii	gossypium_raimondii	EnsemblPlants	29730	Graimondii2_0_v6	GCA_000327365.1	2017-09-DOEJointGenomeInstitute/2017-09	N	N	N	Y	Y	Y	gossypium_raimondii_core_62_115_2	1	
+Helianthus annuus	helianthus_annuus	EnsemblPlants	4232	HanXRQr2.0-SUNRISE	GCA_002127325.2	2021-03-Heliagene/2021-03	Y	N	N	Y	Y	N	helianthus_annuus_core_62_115_2	1	
+Hordeum vulgare	hordeum_vulgare	EnsemblPlants	112509	MorexV3_pseudomolecules_assembly	GCA_904849725.1	2021-04-JHI	Y	N	N	Y	Y	Y	hordeum_vulgare_core_62_115_4	1	
+Hordeum vulgare 10TJ18	hordeum_vulgare_10tj18	EnsemblPlants	4513	Hvulgare_10TJ18_BPGv2	GCA_949783005.1	Hvulgare10TJ18BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_10tj18_core_62_115_1	1	
+Hordeum vulgare Aizu6	hordeum_vulgare_aizu6	EnsemblPlants	4513	Hvulgare_cv_Aizu6_BPGv2	GCA_949782985.1	HvulgarecvAizu6BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_aizu6_core_62_115_1	1	
+Hordeum vulgare Akashinriki	hordeum_vulgare_akashinriki	EnsemblPlants	4513	Hvulgare_cv_Akashinriki_BPGv2	GCA_949783095.1	HvulgarecvAkashinrikiBPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_akashinriki_core_62_115_1	1	
+Hordeum vulgare Barke	hordeum_vulgare_barke	EnsemblPlants	4513	Hvulgare_cv_Barke_BPGv2	GCA_949782835.1	HvulgarecvBarkeBPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_barke_core_62_115_1	1	
+Hordeum vulgare Bonus	hordeum_vulgare_bonus	EnsemblPlants	4513	Hvulgare_cv_Bonus_BPGv2	GCA_949782845.1	HvulgarecvBonusBPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_bonus_core_62_115_1	1	
+Hordeum vulgare Bowman	hordeum_vulgare_bowman	EnsemblPlants	4513	Hvulgare_cv_Bowman_BPGv2	GCA_949783105.1	HvulgarecvBowmanBPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_bowman_core_62_115_1	1	
+Hordeum vulgare ChikurinIbaraki	hordeum_vulgare_chikurinibaraki1	EnsemblPlants	4513	Hvulgare_cv_Chikurin_Ibaraki1_BPGv2	GCA_949783145.1	HvulgarecvChikurinIbaraki1BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_chikurinibaraki1_core_62_115_1	1	
+Hordeum vulgare Foma	hordeum_vulgare_foma	EnsemblPlants	4513	Hvulgare_cv_Foma_BPGv2	GCA_949783265.1	HvulgarecvFomaBPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_foma_core_62_115_1	1	
+Hordeum vulgare FT11	hordeum_vulgare_ft11	EnsemblPlants	4513	Hvulgare_FT11_B1K_04_12_BPGv2	GCA_949783205.1	HvulgareFT11B1K0412BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_ft11_core_62_115_1	1	
+Hordeum vulgare FT144	hordeum_vulgare_ft144	EnsemblPlants	4513	Hvulgare_FT144_BPGv2	GCA_949783175.1	HvulgareFT144BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_ft144_core_62_115_1	1	
+Hordeum vulgare FT262	hordeum_vulgare_ft262	EnsemblPlants	4513	Hvulgare_FT262_BPGv2	GCA_949783245.1	HvulgareFT262BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_ft262_core_62_115_1	1	
+Hordeum vulgare FT286	hordeum_vulgare_ft286	EnsemblPlants	4513	Hvulgare_FT286_BPGv2	GCA_949783225.1	HvulgareFT286BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_ft286_core_62_115_1	1	
+Hordeum vulgare FT333	hordeum_vulgare_ft333	EnsemblPlants	4513	Hvulgare_FT333_BPGv2	GCA_949783255.1	HvulgareFT333BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_ft333_core_62_115_1	1	
+Hordeum vulgare FT628	hordeum_vulgare_ft628	EnsemblPlants	4513	Hvulgare_FT628_BPGv2	GCA_949783215.1	HvulgareFT628BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_ft628_core_62_115_1	1	
+Hordeum vulgare FT67	hordeum_vulgare_ft67	EnsemblPlants	4513	Hvulgare_FT67_BPGv2	GCA_949783155.1	HvulgareFT67BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_ft67_core_62_115_1	1	
+Hordeum vulgare FT880	hordeum_vulgare_ft880	EnsemblPlants	4513	Hvulgare_FT880_BPGv2	GCA_949783125.1	HvulgareFT880BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_ft880_core_62_115_1	1	
+Hordeum vulgare Goldenmelon	hordeum_vulgare_goldenmelon	EnsemblPlants	4513	Hvulgare_cv_Golden_Melon_BPGv2	GCA_949783165.1	HvulgarecvGoldenMelonBPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_goldenmelon_core_62_115_1	1	
+Hordeum vulgare GoldenPromise	hordeum_vulgare_goldenpromise	EnsemblPlants	4513	Hvulgare_cv_Golden_Promise_BPGv2	GCA_949783185.1	HvulgarecvGoldenPromiseBPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_goldenpromise_core_62_115_1	1	
+Hordeum vulgare HID055	hordeum_vulgare_hid055	EnsemblPlants	4513	Hvulgare_HID055_BPGv2	GCA_951341855.1	HvulgareHID055BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hid055_core_62_115_1	1	
+Hordeum vulgare HID101	hordeum_vulgare_hid101	EnsemblPlants	4513	Hvulgare_HID101_BPGv2	GCA_951341475.1	HvulgareHID101BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hid101_core_62_115_1	1	
+Hordeum vulgare HID249	hordeum_vulgare_hid249	EnsemblPlants	4513	Hvulgare_HID249_BPGv2	GCA_951341515.1	HvulgareHID249BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hid249_core_62_115_1	1	
+Hordeum vulgare HID357	hordeum_vulgare_hid357	EnsemblPlants	4513	Hvulgare_HID357_BPGv2	GCA_951341455.1	HvulgareHID357BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hid357_core_62_115_1	1	
+Hordeum vulgare HID380	hordeum_vulgare_hid380	EnsemblPlants	4513	Hvulgare_HID380_BPGv2	GCA_951341805.1	HvulgareHID380BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hid380_core_62_115_1	1	
+Hordeum vulgare Hockett	hordeum_vulgare_hockett	EnsemblPlants	4513	Hvulgare_cv_Hockett_BPGv2	GCA_949783275.1	HvulgarecvHockettBPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hockett_core_62_115_1	1	
+Hordeum vulgare HOR10096	hordeum_vulgare_hor10096	EnsemblPlants	4513	Hvulgare_HOR_10096_BPGv2	GCA_949783525.1	HvulgareHOR10096BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor10096_core_62_115_1	1	
+Hordeum vulgare HOR10350	hordeum_vulgare_hor10350	EnsemblPlants	4513	Hvulgare_HOR_10350_BPGv2	GCA_949783515.1	HvulgareHOR10350BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor10350_core_62_115_1	1	
+Hordeum vulgare HOR10892	hordeum_vulgare_hor10892	EnsemblPlants	4513	Hvulgare_HOR_10892_BPGv2	GCA_949783585.1	HvulgareHOR10892BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor10892_core_62_115_1	1	
+Hordeum vulgare HOR1168	hordeum_vulgare_hor1168	EnsemblPlants	4513	Hvulgare_HOR_1168_BPGv2	GCA_949783555.1	HvulgareHOR1168BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor1168_core_62_115_1	1	
+Hordeum vulgare HOR12184	hordeum_vulgare_hor12184	EnsemblPlants	4513	Hvulgare_HOR_12184_BPGv2	GCA_949783505.1	HvulgareHOR12184BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor12184_core_62_115_1	1	
+Hordeum vulgare HOR12541	hordeum_vulgare_hor12541	EnsemblPlants	4513	Hvulgare_HOR_12541_BPGv2	GCA_949783565.1	HvulgareHOR12541BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor12541_core_62_115_1	1	
+Hordeum vulgare HOR13594	hordeum_vulgare_hor13594	EnsemblPlants	4513	Hvulgare_HOR_13594_BPGv2	GCA_949783455.1	HvulgareHOR13594BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor13594_core_62_115_1	1	
+Hordeum vulgare HOR13663	hordeum_vulgare_hor13663	EnsemblPlants	4513	Hvulgare_HOR_13663_BPGv2	GCA_949783385.1	HvulgareHOR13663BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor13663_core_62_115_1	1	
+Hordeum vulgare HOR13821	hordeum_vulgare_hor13821	EnsemblPlants	4513	Hvulgare_HOR_13821_BPGv2	GCA_949783395.1	HvulgareHOR13821BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor13821_core_62_115_1	1	
+Hordeum vulgare HOR13942	hordeum_vulgare_hor13942	EnsemblPlants	4513	Hvulgare_HOR_13942_BPGv2	GCA_949783295.1	HvulgareHOR13942BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor13942_core_62_115_1	1	
+Hordeum vulgare HOR14061	hordeum_vulgare_hor14061	EnsemblPlants	4513	Hvulgare_HOR_14061_BPGv2	GCA_949783355.1	HvulgareHOR14061BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor14061_core_62_115_1	1	
+Hordeum vulgare HOR14121	hordeum_vulgare_hor14121	EnsemblPlants	4513	Hvulgare_HOR_14121_BPGv2	GCA_949783365.1	HvulgareHOR14121BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor14121_core_62_115_1	1	
+Hordeum vulgare HOR14273	hordeum_vulgare_hor14273	EnsemblPlants	4513	Hvulgare_HOR_14273_BPGv2	GCA_949783335.1	HvulgareHOR14273BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor14273_core_62_115_1	1	
+Hordeum vulgare HOR1702	hordeum_vulgare_hor1702	EnsemblPlants	4513	Hvulgare_HOR_1702_BPGv2	GCA_949783535.1	HvulgareHOR1702BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor1702_core_62_115_1	1	
+Hordeum vulgare HOR18321	hordeum_vulgare_hor18321	EnsemblPlants	4513	Hvulgare_HOR_18321_BPGv2	GCA_949783465.1	HvulgareHOR18321BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor18321_core_62_115_1	1	
+Hordeum vulgare HOR19184	hordeum_vulgare_hor19184	EnsemblPlants	4513	Hvulgare_HOR_19184_BPGv2	GCA_949783405.1	HvulgareHOR19184BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor19184_core_62_115_1	1	
+Hordeum vulgare HOR21256	hordeum_vulgare_hor21256	EnsemblPlants	4513	Hvulgare_HOR_21256_BPGv2	GCA_949783305.1	HvulgareHOR21256BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor21256_core_62_115_1	1	
+Hordeum vulgare HOR21322	hordeum_vulgare_hor21322	EnsemblPlants	4513	Hvulgare_HOR_21322_BPGv2	GCA_949783445.1	HvulgareHOR21322BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor21322_core_62_115_1	1	
+Hordeum vulgare HOR21595	hordeum_vulgare_hor21595	EnsemblPlants	4513	Hvulgare_HOR_21595_BPGv2	GCA_949783375.1	HvulgareHOR21595BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor21595_core_62_115_1	1	
+Hordeum vulgare HOR21599	hordeum_vulgare_hor21599	EnsemblPlants	4513	Hvulgare_HOR_21599_BPGv2	GCA_949783435.1	HvulgareHOR21599BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor21599_core_62_115_1	1	
+Hordeum vulgare HOR2180	hordeum_vulgare_hor2180	EnsemblPlants	4513	Hvulgare_HOR_2180_BPGv2	GCA_949783285.1	HvulgareHOR2180BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor2180_core_62_115_1	1	
+Hordeum vulgare HOR2779	hordeum_vulgare_hor2779	EnsemblPlants	4513	Hvulgare_HOR_2779_BPGv2	GCA_949783485.1	HvulgareHOR2779BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor2779_core_62_115_1	1	
+Hordeum vulgare HOR2830	hordeum_vulgare_hor2830	EnsemblPlants	4513	Hvulgare_HOR_2830_BPGv2	GCA_949783545.1	HvulgareHOR2830BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor2830_core_62_115_1	1	
+Hordeum vulgare HOR3081	hordeum_vulgare_hor3081	EnsemblPlants	4513	Hvulgare_HOR_3081_BPGv2	GCA_949783495.1	HvulgareHOR3081BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor3081_core_62_115_1	1	
+Hordeum vulgare HOR3365	hordeum_vulgare_hor3365	EnsemblPlants	4513	Hvulgare_HOR_3365_BPGv2	GCA_949783415.1	HvulgareHOR3365BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor3365_core_62_115_1	1	
+Hordeum vulgare HOR3474	hordeum_vulgare_hor3474	EnsemblPlants	4513	Hvulgare_HOR_3474_BPGv2	GCA_949783475.1	HvulgareHOR3474BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor3474_core_62_115_1	1	
+Hordeum vulgare HOR4224	hordeum_vulgare_hor4224	EnsemblPlants	4513	Hvulgare_HOR_4224_BPGv2	GCA_949783345.1	HvulgareHOR4224BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor4224_core_62_115_1	1	
+Hordeum vulgare HOR495	hordeum_vulgare_hor495	EnsemblPlants	4513	Hvulgare_HOR_495_BPGv2	GCA_949783425.1	HvulgareHOR495BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor495_core_62_115_1	1	
+Hordeum vulgare HOR6220	hordeum_vulgare_hor6220	EnsemblPlants	4513	Hvulgare_HOR_6220_BPGv2	GCA_949783315.1	HvulgareHOR6220BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor6220_core_62_115_1	1	
+Hordeum vulgare HOR7172	hordeum_vulgare_hor7172	EnsemblPlants	4513	Hvulgare_HOR_7172_BPGv2	GCA_949783325.1	HvulgareHOR7172BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor7172_core_62_115_1	1	
+Hordeum vulgare HOR7385	hordeum_vulgare_hor7385	EnsemblPlants	4513	Hvulgare_HOR_7385_BPGv2	GCA_949783575.1	HvulgareHOR7385BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor7385_core_62_115_1	1	
+Hordeum vulgare HOR7552	hordeum_vulgare_hor7552	EnsemblPlants	4513	Hvulgare_HOR_7552_BPGv2	GCA_951815805.1	HvulgareHOR7552BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor7552_core_62_115_1	1	
+Hordeum vulgare HOR8117	hordeum_vulgare_hor8117	EnsemblPlants	4513	Hvulgare_HOR_8117_BPGv2	GCA_951816725.1	HvulgareHOR8117BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor8117_core_62_115_1	1	
+Hordeum vulgare HOR8148	hordeum_vulgare_hor8148	EnsemblPlants	4513	Hvulgare_HOR_8148_BPGv2	GCA_951816905.1	HvulgareHOR8148BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor8148_core_62_115_1	1	
+Hordeum vulgare HOR9043	hordeum_vulgare_hor9043	EnsemblPlants	4513	Hvulgare_HOR_9043_BPGv2	GCA_951817035.1	HvulgareHOR9043BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor9043_core_62_115_1	1	
+Hordeum vulgare HOR9972	hordeum_vulgare_hor9972	EnsemblPlants	4513	Hvulgare_HOR_9972_BPGv2	GCA_951816845.1	HvulgareHOR9972BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_hor9972_core_62_115_1	1	
+Hordeum vulgare Igri	hordeum_vulgare_igri	EnsemblPlants	4513	Hvulgare_Igri_BPGv2	GCA_951816695.1	HvulgareIgriBPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_igri_core_62_115_1	1	
+Hordeum vulgare Maximus	hordeum_vulgare_maximus	EnsemblPlants	4513	Hvulgare_cv_Maximus_BPGv2	GCA_949783115.1	HvulgarecvMaximusBPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_maximus_core_62_115_1	1	
+Hordeum vulgare OUN333	hordeum_vulgare_oun333	EnsemblPlants	4513	Hvulgare_OUN333_BPGv2	GCA_951816885.1	HvulgareOUN333BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_oun333_core_62_115_1	1	
+Hordeum vulgare RGTPlanet	hordeum_vulgare_rgtplanet	EnsemblPlants	4513	Hvulgare_cv_RGT_Planet_BPGv2	GCA_949783135.1	HvulgarecvRGTPlanetBPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_rgtplanet_core_62_115_1	1	
+Hordeum vulgare TRITEX	hordeum_vulgare_tritex	EnsemblPlants	112509	Morex_V2_scaf	GCA_903813605.1	2020-12-IPK/2020-12	N	N	N	Y	N	N	hordeum_vulgare_tritex_core_62_115_1	1	
+Hordeum vulgare WBDC078	hordeum_vulgare_wbdc078	EnsemblPlants	4513	Hvulgare_WBDC_078_BPGv2	GCA_951816965.1	HvulgareWBDC078BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_wbdc078_core_62_115_1	1	
+Hordeum vulgare WBDC103	hordeum_vulgare_wbdc103	EnsemblPlants	4513	Hvulgare_WBDC_103_BPGv2	GCA_951817075.1	HvulgareWBDC103BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_wbdc103_core_62_115_1	1	
+Hordeum vulgare WBDC133	hordeum_vulgare_wbdc133	EnsemblPlants	4513	Hvulgare_WBDC_133_BPGv2	GCA_951816855.1	HvulgareWBDC133BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_wbdc133_core_62_115_1	1	
+Hordeum vulgare WBDC184	hordeum_vulgare_wbdc184	EnsemblPlants	4513	Hvulgare_WBDC_184_BPGv2	GCA_951816615.1	HvulgareWBDC184BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_wbdc184_core_62_115_1	1	
+Hordeum vulgare WBDC199	hordeum_vulgare_wbdc199	EnsemblPlants	4513	Hvulgare_WBDC_199_BPGv2	GCA_951816745.1	HvulgareWBDC199BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_wbdc199_core_62_115_1	1	
+Hordeum vulgare WBDC207	hordeum_vulgare_wbdc207	EnsemblPlants	4513	Hvulgare_WBDC_207_BPGv2	GCA_951816575.1	HvulgareWBDC207BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_wbdc207_core_62_115_1	1	
+Hordeum vulgare WBDC237	hordeum_vulgare_wbdc237	EnsemblPlants	4513	Hvulgare_WBDC_237_BPGv2	GCA_951816835.1	HvulgareWBDC237BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_wbdc237_core_62_115_1	1	
+Hordeum vulgare WBDC348	hordeum_vulgare_wbdc348	EnsemblPlants	4513	Hvulgare_WBDC_348_BPGv2	GCA_951817375.1	HvulgareWBDC348BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_wbdc348_core_62_115_1	1	
+Hordeum vulgare WBDC349	hordeum_vulgare_wbdc349	EnsemblPlants	4513	Hvulgare_WBDC_349_BPGv2	GCA_951817435.1	HvulgareWBDC349BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_wbdc349_core_62_115_1	1	
+Hordeum vulgare ZDM01467	hordeum_vulgare_zdm01467	EnsemblPlants	4513	Hvulgare_cv_Du_Li_Huang_ZDM01467_BPGv2	GCA_949783235.1	HvulgarecvDuLiHuangZDM01467BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_zdm01467_core_62_115_1	1	
+Hordeum vulgare ZDM02064	hordeum_vulgare_zdm02064	EnsemblPlants	4513	Hvulgare_cv_Chiba_ZDM02064_BPGv2	GCA_949783195.1	HvulgarecvChibaZDM02064BPGv2.0	N	N	N	Y	N	N	hordeum_vulgare_zdm02064_core_62_115_1	1	
+Ipomoea triloba	ipomoea_triloba	EnsemblPlants	35885	ASM357664v1	GCA_003576645.1	2019-09-GT4SP	N	N	N	Y	Y	N	ipomoea_triloba_core_62_115_1	1	
+Juglans regia	juglans_regia	EnsemblPlants	51240	Walnut_2.0	GCA_001411555.2	2020-11-UCD/2020-11	N	N	N	Y	Y	N	juglans_regia_core_62_115_1	1	
+Kalanchoe fedtschenkoi	kalanchoe_fedtschenkoi	EnsemblPlants	63787	K_fedtschenkoi_M2_v1	GCA_002312845.1	2020-04-v1.0/2020-04	N	N	N	Y	Y	N	kalanchoe_fedtschenkoi_core_62_115_1	1	
+Lablab purpureus Natoba	lablab_purpureus_gca030347555v1cm	EnsemblPlants	35936	ILRI_Lpur	GCA_030347555.1	ILRILpur.0	N	N	N	Y	Y	N	lablab_purpureus_gca030347555v1cm_core_62_115_1	1	
+Lactuca sativa	lactuca_sativa	EnsemblPlants	4236	Lsat_Salinas_v7	GCA_002870075.2	2021-04-UCD	N	N	N	Y	Y	N	lactuca_sativa_core_62_115_1	1	
+Lathyrus sativus	lathyrus_sativus	EnsemblPlants	3860	JIC_Lsat_v2.1.1	GCA_963859935.3	JICLsatv2v1v1.0	N	N	N	Y	Y	N	lathyrus_sativus_core_62_115_1	1	
+Leersia perrieri	leersia_perrieri	EnsemblPlants	77586	Lperr_V1.4	GCA_000325765.3	2013-09-OGE	N	N	N	Y	Y	Y	leersia_perrieri_core_62_115_14	1	
+Lolium perenne	lolium_perenne	EnsemblPlants	4522	MPB_Lper_Kyuss_1697	GCA_019359855.1	2022-03-Zu	N	N	N	Y	N	N	lolium_perenne_core_62_115_1	1	
+Lupinus angustifolius	lupinus_angustifolius	EnsemblPlants	3871	LupAngTanjil_v1.0	GCA_001865875.1	2017-07-CSIRO/2018-10	N	N	N	Y	Y	Y	lupinus_angustifolius_core_62_115_1	1	
+Malus domestica Golden	malus_domestica_golden	EnsemblPlants	3750	ASM211411v1	GCA_002114115.1	2019-12-GDDH13/2019-12	Y	N	N	Y	Y	N	malus_domestica_golden_core_62_115_1	1	
+Manihot esculenta	manihot_esculenta	EnsemblPlants	3983	M.esculenta_v8	GCA_001659605.2	Mvesculentav8.0	N	N	N	Y	Y	N	manihot_esculenta_core_62_115_2	1	
+Marchantia polymorpha	marchantia_polymorpha	EnsemblPlants	3197	MpTak1_v7.1	GCA_039105155.1	MpTak1v7v1.0	N	N	Y	Y	Y	N	marchantia_polymorpha_core_62_115_2	1	
+Medicago truncatula	medicago_truncatula	EnsemblPlants	3880	MtrunA17r5.0_ANR	GCA_003473485.2	MtrunA17r5v0ANR.0	N	N	N	Y	Y	N	medicago_truncatula_core_62_115_3	1	
+Musa acuminata	musa_acuminata	EnsemblPlants	214687	Musa_acuminata_v2	GCA_904845865.1	2016-01-BGH/2020-11	N	N	N	Y	Y	Y	musa_acuminata_core_62_115_2	1	
+Nicotiana attenuata	nicotiana_attenuata	EnsemblPlants	49451	NIATTr2	GCA_001879085.1	2017-09-MPI-CE	N	N	N	Y	Y	Y	nicotiana_attenuata_core_62_115_1	1	
+Nymphaea colorata	nymphaea_colorata	EnsemblPlants	210225	ASM883128v1	GCA_008831285.1	2020-02-asm20170215/2020-02	N	N	N	Y	Y	N	nymphaea_colorata_core_62_115_1	1	
+Olea europaea	olea_europaea	EnsemblPlants	158383	OLEA9	GCA_902713445.1	2021-03-CNAG/2021-03	N	N	N	Y	Y	N	olea_europaea_core_62_115_1	1	
+Olea europaea var. sylvestris	olea_europaea_sylvestris	EnsemblPlants	158386	O_europaea_v1	GCA_002742605.1	2019-10-ORCAE/2019-10	N	N	N	N	N	N	olea_europaea_sylvestris_core_62_115_1	1	
+Oryza barthii	oryza_barthii	EnsemblPlants	65489	O.barthii_v1	GCA_000182155.2	2014-05-OGE	N	N	N	Y	Y	Y	oryza_barthii_core_62_115_3	1	
+Oryza brachyantha	oryza_brachyantha	EnsemblPlants	4533	Oryza_brachyantha.v1.4b	GCA_000231095.2	2011-05-OGE	N	N	N	Y	Y	Y	oryza_brachyantha_core_62_115_14	1	
+Oryza glaberrima	oryza_glaberrima	EnsemblPlants	4538	Oryza_glaberrima_V1	GCA_000147395.1	2011-05-OGE	Y	N	N	Y	Y	Y	oryza_glaberrima_core_62_115_2	1	
+Oryza glumipatula	oryza_glumipatula	EnsemblPlants	40148	Oryza_glumaepatula_v1.5	GCA_000576495.1	2013-09-OGE	Y	N	N	Y	Y	Y	oryza_glumipatula_core_62_115_15	1	
+Oryza sativa Indica Group	oryza_indica	EnsemblPlants	39946	ASM465v1	GCA_000004655.2	2010-07-BGI	Y	N	N	Y	Y	Y	oryza_indica_core_62_115_2	1	
+Oryza longistaminata	oryza_longistaminata	EnsemblPlants	4528	O_longistaminata_v1.0	GCA_000789195.1	2015-05-OGE	N	N	N	Y	Y	Y	oryza_longistaminata_core_62_115_2	1	
+Oryza meridionalis	oryza_meridionalis	EnsemblPlants	40149	Oryza_meridionalis_v1.3	GCA_000338895.2	2014-10-OGE	N	N	N	Y	Y	Y	oryza_meridionalis_core_62_115_13	1	
+Oryza nivara	oryza_nivara	EnsemblPlants	4536	Oryza_nivara_v1.0	GCA_000576065.1	2013-09-OGE	N	N	N	Y	Y	Y	oryza_nivara_core_62_115_10	1	
+Oryza punctata	oryza_punctata	EnsemblPlants	4537	Oryza_punctata_v1.2	GCA_000573905.1	2013-09-OGE	N	N	N	Y	Y	Y	oryza_punctata_core_62_115_12	1	
+Oryza rufipogon	oryza_rufipogon	EnsemblPlants	4529	OR_W1943	GCA_000817225.1	2013-09-OGE	N	N	N	Y	Y	Y	oryza_rufipogon_core_62_115_11	1	
+Oryza sativa Japonica Group	oryza_sativa	EnsemblPlants	39947	IRGSP-1.0	GCA_001433935.1	2022-09-RAPDB/2019-06	Y	N	Y	Y	Y	Y	oryza_sativa_core_62_115_7	1	
+Oryza sativa (circum-Basmati var. ARC 10497)	oryza_sativa_arc	EnsemblPlants	1736658	Os117425RS1	GCA_009831255.1	2020-12	N	N	N	Y	Y	N	oryza_sativa_arc_core_62_115_1	1	
+Oryza sativa (Geng/Japonica-trop1 var. Azucena)	oryza_sativa_azucena	EnsemblPlants	1736656	AzucenaRS1	GCA_009830595.1	2020-12	N	N	N	Y	Y	N	oryza_sativa_azucena_core_62_115_1	1	
+Oryza sativa (Geng/Japonica-sbtrp var. Chao Meo)	oryza_sativa_chaomeo	EnsemblPlants	1736656	Os132278RS1	GCA_009831315.1	2020-12	N	N	N	Y	Y	N	oryza_sativa_chaomeo_core_62_115_1	1	
+Oryza sativa (Xian/Indica-2A var. Gobol Sail)	oryza_sativa_gobolsailbalam	EnsemblPlants	39946	Os132424RS1	GCA_009831025.1	2020-12	N	N	N	Y	Y	N	oryza_sativa_gobolsailbalam_core_62_115_1	1	
+Oryza sativa (Xian/Indica-1B1 var. IR64)	oryza_sativa_ir64	EnsemblPlants	39946	OsIR64RS1	GCA_009914875.1	2020-12	N	N	N	Y	Y	N	oryza_sativa_ir64_core_62_115_1	1	
+Oryza sativa (Geng/Japonica-trop2 var. Ketan Nangka)	oryza_sativa_ketannangka	EnsemblPlants	1736656	Os128077RS1	GCA_009831275.1	2020-12	N	N	N	Y	Y	N	oryza_sativa_ketannangka_core_62_115_1	1	
+Oryza sativa (Xian/Indica-3B1 var. Khao Yai Guang)	oryza_sativa_khaoyaiguang	EnsemblPlants	39946	Os127518RS1	GCA_009831295.1	2020-12	N	N	N	Y	Y	N	oryza_sativa_khaoyaiguang_core_62_115_1	1	
+Oryza sativa (Xian/Indica-2B var. Larha Mugad)	oryza_sativa_larhamugad	EnsemblPlants	39946	Os125619RS1	GCA_009831355.1	2020-12	N	N	N	Y	Y	N	oryza_sativa_larhamugad_core_62_115_1	1	
+Oryza sativa (Xian/Indica-3A var. Lima)	oryza_sativa_lima	EnsemblPlants	39946	Os127564RS1	GCA_009829395.1	2020-12	N	N	N	Y	Y	N	oryza_sativa_lima_core_62_115_1	1	
+Oryza sativa (Xian/Indica-3B2 var. Liu Xu)	oryza_sativa_liuxu	EnsemblPlants	39946	Os125827RS1	GCA_009829375.1	2020-12	N	N	N	Y	N	N	oryza_sativa_liuxu_core_62_115_1	1	
+Oryza sativa (Xian/Indica-adm var. Minghui 63)	oryza_sativa_mh63	EnsemblPlants	39946	MH63RS2	GCA_001618785.1	2020-12	N	N	N	Y	Y	N	oryza_sativa_mh63_core_62_115_1	1	
+Oryza sativa (circum-Aus1 var. N22)	oryza_sativa_n22	EnsemblPlants	1736659	OsN22RS2	GCA_001952365.2	2020-12	N	N	N	Y	Y	N	oryza_sativa_n22_core_62_115_1	1	
+Oryza sativa (circum-Aus2 var. Natel Boro)	oryza_sativa_natelboro	EnsemblPlants	1736659	Os127652RS1	GCA_009831335.1	2020-12	N	N	N	Y	Y	N	oryza_sativa_natelboro_core_62_115_1	1	
+Oryza sativa (Xian/Indica-1B2 var. PR106)	oryza_sativa_pr106	EnsemblPlants	39946	Os127742RS1	GCA_009831045.1	2020-12	N	N	N	Y	Y	N	oryza_sativa_pr106_core_62_115_1	1	
+Oryza sativa (Xian/Indica-1A var. Zhenshan 97)	oryza_sativa_zs97	EnsemblPlants	39946	ZS97RS3	GCA_001618795.1	2020-12	N	N	N	Y	Y	N	oryza_sativa_zs97_core_62_115_1	1	
+Ostreococcus lucimarinus	ostreococcus_lucimarinus	EnsemblPlants	436017	ASM9206v1	GCA_000092065.1	2011-01-JGI	N	N	N	Y	N	Y	ostreococcus_lucimarinus_core_62_115_1	1	
+Panicum hallii HAL2	panicum_hallii	EnsemblPlants	1504633	PhalliiHAL_v2.1	GCA_003061485.1	2018-05ENA	N	N	N	Y	Y	N	panicum_hallii_core_62_115_1	1	
+Panicum hallii FIL2	panicum_hallii_fil2	EnsemblPlants	206008	PHallii_v3.1	GCA_002211085.2	2018-05ENA	N	N	N	N	N	N	panicum_hallii_fil2_core_62_115_1	1	
+Papaver somniferum	papaver_somniferum	EnsemblPlants	3469	ASM357369v1	GCA_003573695.1	2019-06-XianJiaotongUniversity/2019-06	N	N	N	Y	Y	N	papaver_somniferum_core_62_115_1	1	
+Phaseolus vulgaris	phaseolus_vulgaris	EnsemblPlants	3885	PhaVulg1_0	GCA_000499845.1	2017-09-JGI	N	N	N	Y	Y	Y	phaseolus_vulgaris_core_62_115_1	1	
+Physcomitrium patens	physcomitrium_patens	EnsemblPlants	3218	Phypa V3	GCA_000002425.2	2018-04-JGI	N	N	Y	Y	Y	Y	physcomitrium_patens_core_62_115_2	1	
+Pistacia vera	pistacia_vera	EnsemblPlants	55513	PisVer_v2	GCA_008641045.1	2019-10-EVM/2019-10	N	N	N	Y	Y	N	pistacia_vera_core_62_115_1	1	
+Pisum sativum	pisum_sativum	EnsemblPlants	3888	Pisum_sativum_v1a	GCA_900700895.2	v1a	N	N	N	Y	Y	N	pisum_sativum_core_62_115_1	1	
+Pisum sativum Garden pea	pisum_sativum_gca024323335v2gb	EnsemblPlants	3888	CAAS_Psat_ZW6_1.0	GCA_024323335.2	CAASPsatZW61v0.0	N	N	N	Y	Y	N	pisum_sativum_gca024323335v2gb_core_62_115_1	1	
+Pisum sativum JI2822	pisum_sativum_gca964186695v1gb	EnsemblPlants	3888	JIC_Psat_v1.3	GCA_964186695.1	JICPsatv1v3.0	N	N	N	Y	N	N	pisum_sativum_gca964186695v1gb_core_62_115_1	1	
+Populus trichocarpa	populus_trichocarpa	EnsemblPlants	3694	Pop_tri_v4	GCA_000002775.4	2022-JGI	N	N	N	Y	Y	N	populus_trichocarpa_core_62_115_1	1	
+Prunus avium	prunus_avium	EnsemblPlants	42229	PAV_r1.0	GCA_002207925.1	2019-09-GDR/2013-11	N	N	N	Y	Y	N	prunus_avium_core_62_115_1	1	
+Prunus dulcis	prunus_dulcis	EnsemblPlants	3755	ALMONDv2	GCA_902201215.1	2020-04-CNAG	N	N	N	Y	Y	N	prunus_dulcis_core_62_115_1	1	
+Prunus persica	prunus_persica	EnsemblPlants	3760	Prunus_persica_NCBIv2	GCA_000346465.2	2017-09-JGI	N	N	N	Y	Y	Y	prunus_persica_core_62_115_2	1	
+Quercus lobata	quercus_lobata	EnsemblPlants	97700	ValleyOak3.0	GCA_001633185.2	2020-05-UCLA/2020-05	N	N	N	Y	Y	N	quercus_lobata_core_62_115_1	1	
+Quercus suber	quercus_suber	EnsemblPlants	58331	CorkOak1.0	GCA_002906115.4	2023-05-Genosuber	N	N	N	Y	Y	N	quercus_suber_core_62_115_2	1	
+Rosa chinensis	rosa_chinensis	EnsemblPlants	74649	RchiOBHm-V2	GCA_002994745.2	2019-01-INRACNRS/2019-01	N	N	N	Y	Y	N	rosa_chinensis_core_62_115_1	1	
+Saccharum spontaneum	saccharum_spontaneum	EnsemblPlants	62335	Sspon.HiC_chr_asm	GCA_003544955.1	2019-08-UIL/2019-08	N	N	N	Y	Y	N	saccharum_spontaneum_core_62_115_1	1	
+Secale cereale	secale_cereale	EnsemblPlants	4550	Rye_Lo7_2018_v1p1p1	GCA_902687465.1	Feb2019.HC	N	N	N	Y	Y	N	secale_cereale_core_62_115_1	1	
+Selaginella moellendorffii	selaginella_moellendorffii	EnsemblPlants	88036	v1.0	GCA_000143415.1	2011-05-JGI	N	N	Y	Y	Y	Y	selaginella_moellendorffii_core_62_115_1	1	
+Sesamum indicum	sesamum_indicum	EnsemblPlants	4182	S_indicum_v1.0	GCA_000512975.1	2020-12-SINBASE/2020-12	N	N	N	Y	Y	N	sesamum_indicum_core_62_115_1	1	
+Setaria italica	setaria_italica	EnsemblPlants	4555	Setaria_italica_v2.0	GCA_000263155.2	2015-11-JGI/2015-11	N	N	N	Y	Y	Y	setaria_italica_core_62_115_2	1	
+Setaria viridis	setaria_viridis	EnsemblPlants	4556	Setaria_viridis_v2.0	GCA_005286985.1	2019-05-DOEJointGenomeInstitute/2019-05	N	N	N	Y	Y	N	setaria_viridis_core_62_115_1	1	
+Solanum lycopersicum	solanum_lycopersicum	EnsemblPlants	4081	SL3.0	GCA_000188115.3	2017-02-SOL/2018-10	Y	N	Y	Y	Y	Y	solanum_lycopersicum_core_62_115_3	1	
+Solanum tuberosum	solanum_tuberosum	EnsemblPlants	4113	SolTub_3.0	GCA_000226075.1	2011-05-SolTub_3.0	N	N	N	Y	Y	Y	solanum_tuberosum_core_62_115_4	1	
+Solanum tuberosum RH89-039-16	solanum_tuberosum_rh8903916	EnsemblPlants	4113	ASM1418947v1	GCA_014189475.1	2020-12-MSU/2020-12	N	N	N	N	N	N	solanum_tuberosum_rh8903916_core_62_115_1	1	
+Sorghum bicolor	sorghum_bicolor	EnsemblPlants	4558	Sorghum_bicolor_NCBIv3	GCA_000003195.3	2017-06-JGI	Y	N	N	Y	Y	Y	sorghum_bicolor_core_62_115_30	1	
+Sphenostylis stenocarpa	sphenostylis_stenocarpa	EnsemblPlants	92480	hybrid_with_Hi_C	GCA_963425845.1	hybridwithHiC.0	N	N	N	Y	Y	N	sphenostylis_stenocarpa_core_62_115_1	1	
+Theobroma cacao Matina 1-6	theobroma_cacao	EnsemblPlants	3641	Theobroma_cacao_20110822	GCA_000403535.1	2014-05-CGD	N	N	N	Y	Y	Y	theobroma_cacao_core_62_115_1	1	
+Theobroma cacao Belizian Criollo B97-61/B2	theobroma_cacao_criollo	EnsemblPlants	3641	Criollo_cocoa_genome_V2	GCA_000208745.2	2019-03-CGH/2019-03	N	N	N	N	N	N	theobroma_cacao_criollo_core_62_115_1	1	
+Trifolium pratense	trifolium_pratense	EnsemblPlants	57577	Trpr	GCA_900079335.1	2016-04-TGAC	N	N	N	Y	Y	Y	trifolium_pratense_core_62_115_1	1	
+Triticum aestivum	triticum_aestivum	EnsemblPlants	4565	IWGSC	GCA_900519105.1	2018-04-IWGSC	Y	N	N	Y	Y	Y	triticum_aestivum_core_62_115_4	1	
+Triticum aestivum Alchemy	triticum_aestivum_alchemy	EnsemblPlants	4565	GCA951799155v1	GCA_951799155.1	GCA951799155v1.0	N	N	N	N	N	N	triticum_aestivum_alchemy_core_62_115_1	1	
+Triticum aestivum Arinalrfor	triticum_aestivum_arinalrfor	EnsemblPlants	4565	PGSBv2.0_Arinalrfor	GCA_903993985.1	2021-06-PGSBv2.1	Y	N	N	Y	Y	N	triticum_aestivum_arinalrfor_core_62_115_1	1	
+Triticum aestivum Cadenza	triticum_aestivum_cadenza	EnsemblPlants	4565	TGAC_cadenza	GCA_902810645.1	2019-09-EI	N	N	N	N	N	N	triticum_aestivum_cadenza_core_62_115_1	1	
+Triticum aestivum Claire	triticum_aestivum_claire	EnsemblPlants	4565	TGAC_paragon	GCA_902810655.1	2019-09-EI	N	N	N	N	N	N	triticum_aestivum_claire_core_62_115_1	1	
+Triticum aestivum Jagger	triticum_aestivum_jagger	EnsemblPlants	4565	PGSBv2.0_Jagger	GCA_903993795.1	2021-06-PGSBv2.1	Y	N	N	Y	Y	N	triticum_aestivum_jagger_core_62_115_1	1	
+Triticum aestivum Julius	triticum_aestivum_julius	EnsemblPlants	4565	PGSBv2.0_Julius	GCA_903994195.1	2021-06-PGSBv2.1	Y	N	N	Y	Y	N	triticum_aestivum_julius_core_62_115_1	1	
+Triticum aestivum Kariega	triticum_aestivum_kariega	EnsemblPlants	4565	Tae_Kariega_v1	GCA_910594105.1	2022-06-Tae_Kariega_v1	N	N	N	Y	Y	N	triticum_aestivum_kariega_core_62_115_1	1	
+Triticum aestivum Lancer	triticum_aestivum_lancer	EnsemblPlants	4565	PGSBv2.0_Lancer	GCA_903993975.1	2021-06-PGSBv2.1	Y	N	N	Y	Y	N	triticum_aestivum_lancer_core_62_115_1	1	
+Triticum aestivum Landmark	triticum_aestivum_landmark	EnsemblPlants	4565	PGSBv2.0_Landmark	GCA_903995565.1	2021-06-PGSBv2.1	N	N	N	Y	N	N	triticum_aestivum_landmark_core_62_115_1	1	
+Triticum aestivum Mace	triticum_aestivum_mace	EnsemblPlants	4565	PGSBv2.0_Mace	GCA_903994175.1	2021-06-PGSBv2.1	Y	N	N	Y	N	N	triticum_aestivum_mace_core_62_115_1	1	
+Triticum aestivum Sy Mattis	triticum_aestivum_mattis	EnsemblPlants	4565	PGSBv2.0_Mattis	GCA_903994185.1	2021-06-PGSBv2.1	Y	N	N	Y	Y	N	triticum_aestivum_mattis_core_62_115_1	1	
+Triticum aestivum Norin61	triticum_aestivum_norin61	EnsemblPlants	4565	PGSBv2.0_Norin61	GCA_904066035.1	2021-06-PGSBv2.1	Y	N	N	Y	Y	N	triticum_aestivum_norin61_core_62_115_1	1	
+Triticum aestivum Paragon	triticum_aestivum_paragon	EnsemblPlants	4565	GCA949126075v1	GCA_949126075.1	GCA949126075v1.0	N	N	N	Y	Y	N	triticum_aestivum_paragon_core_62_115_2	1	
+Triticum aestivum Refseqv2	triticum_aestivum_refseqv2	EnsemblPlants	4565	IWGSC_RefSeq_v2.1	GCA_018294505.1	2018-04-IWGSC/2023-06	N	N	N	N	N	N	triticum_aestivum_refseqv2_core_62_115_1	1	
+Triticum aestivum Renan	triticum_aestivum_renan	EnsemblPlants	4565	Triticum_aestivum_Renan_v2.1	GCA_937894285.1	2022-08-Tae_Renan_v2.1	N	N	N	Y	Y	N	triticum_aestivum_renan_core_62_115_1	1	
+Triticum aestivum Robigus	triticum_aestivum_robigus	EnsemblPlants	4565	TGAC_robigus	GCA_902810685.1	2019-09-EI	N	N	N	N	N	N	triticum_aestivum_robigus_core_62_115_1	1	
+Triticum aestivum Stanley	triticum_aestivum_stanley	EnsemblPlants	4565	PGSBv2.2_Stanley	GCA_903994155.1	2021-06-PGSBv2.1	Y	N	N	Y	Y	N	triticum_aestivum_stanley_core_62_115_1	1	
+Triticum aestivum Weebill	triticum_aestivum_weebil	EnsemblPlants	4565	EI_WeebilV1	GCA_902810675.1	2016-05-TGAC	N	N	N	N	N	N	triticum_aestivum_weebil_core_62_115_1	1	
+Triticum dicoccoides	triticum_dicoccoides	EnsemblPlants	85692	WEWSeq v.1.0	GCA_002162155.1	2017-05-WEWSeq	N	N	N	Y	Y	Y	triticum_dicoccoides_core_62_115_1	1	
+Triticum spelta	triticum_spelta	EnsemblPlants	58933	PGSBv2.0_Spelta	GCA_903994165.1	2019-07-PGSBv2.0	N	N	N	Y	Y	N	triticum_spelta_core_62_115_1	1	
+Triticum timopheevii	triticum_timopheevii	EnsemblPlants	4570	WRC_timopheevii_genome_with_organelles	GCA_963921465.1	WRCtimopheeviigenomewithorganelles.0	N	N	N	Y	Y	N	triticum_timopheevii_core_62_115_1	1	
+Triticum turgidum	triticum_turgidum	EnsemblPlants	4567	svevo	GCA_900231445.1	2017-05-Svevo.v1	Y	N	N	Y	Y	N	triticum_turgidum_core_62_115_1	1	
+Triticum urartu	triticum_urartu	EnsemblPlants	4572	Tu2.0	GCA_003073215.1	IGDB_Final	N	N	N	Y	Y	Y	triticum_urartu_core_62_115_2	1	
+Vicia faba	vicia_faba	EnsemblPlants	3906	Hedin2_genome_v1	GCA_948472305.1	Hedin2genomev1.0	N	N	N	Y	Y	N	vicia_faba_core_62_115_1	1	
+Vigna angularis	vigna_angularis	EnsemblPlants	3914	Vigan1.1	GCA_001190045.1	2015-08-BUA/2015-08	N	N	N	Y	Y	Y	vigna_angularis_core_62_115_1	1	
+Vigna radiata	vigna_radiata	EnsemblPlants	3916	Vradiata_ver6	GCA_000741045.2	2015-10-SNU	N	N	N	Y	Y	Y	vigna_radiata_core_62_115_2	1	
+Vigna unguiculata	vigna_unguiculata	EnsemblPlants	3917	ASM411807v1	GCA_004118075.1	2021-03-UCR	N	N	N	Y	Y	N	vigna_unguiculata_core_62_115_1	1	
+Vitis vinifera	vitis_vinifera	EnsemblPlants	29760	ASM3070453v1	GCA_030704535.1	ASM3070453v1.0	N	N	Y	Y	Y	N	vitis_vinifera_core_62_115_5	1	
+Zea mays	zea_mays	EnsemblPlants	4577	Zm-B73-REFERENCE-NAM-5.0	GCA_902167145.1	2019-12-CSHL/2019-12	Y	N	N	Y	Y	N	zea_mays_core_62_115_8	1	
