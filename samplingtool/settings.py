@@ -37,6 +37,15 @@ sys.path.append(str(BASE_DIR_BACKEND))
 # Location of the NCBI taxonomy JSONL file used for fast name -> TaxID validation
 TAXONOMY_JSON_PATH = os.environ.get("TAXONOMY_JSON_PATH", str(BASE_DIR / "taxonomy_all_new.jsonl"))
 
+# NCBI Datasets API
+# Prefer to set via environment variable NCBI_API_KEY to avoid hard-coding secrets.
+# The fallback keeps the provided key for local convenience; replace/remove in production.
+NCBI_API_KEY = os.environ.get("NCBI_API_KEY", "fd37733d06a29be5a8e6dab99ccc43476f08")
+NCBI_DATASETS_INCLUDE = os.environ.get(
+    "NCBI_DATASETS_INCLUDE",
+    "genome,gff3"  # default payload returned from NCBI
+)
+
 
 # Application definition
 

@@ -1,0 +1,11 @@
+Selected 1 genomes from 1 nodes in 0.00 seconds.
+
+Actual ranks used:
+SPECIES: 1 nodes
+
+Reference status in selection: 0 reference, 1 non-reference genomes.
+Assembly levels in selection:
+Chromosome: 1 genomes
+
+Homo sapiens (SPECIES):
+- Homo sapiens (accession=GCA_001524155.4, refseq=No, level=Chromosome)

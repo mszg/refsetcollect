@@ -6,4 +6,5 @@ urlpatterns = [
     path('run/', views.run_sampling, name='run_sampling'),
     path('progress/<str:job_id>/', views.progress, name='progress'),
     path('result/<str:job_id>/', views.result, name='result'),
+    path('download-genome/', views.download_genome_ncbi, name='download_genome'),
 ]

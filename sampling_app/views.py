@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, StreamingHttpResponse
 from django.conf import settings
+from django.views.decorators.http import require_GET
 
 import os
 import datetime
@@ -13,6 +14,7 @@ import threading
 import time
 import hashlib
 from typing import Optional
+from urllib import request as urlrequest, parse as urlparse, error as urlerror
 
 # Local helpers for taxonomy validation
 from sampling_backend import taxon_lookup
@@ -197,11 +199,24 @@ def _run_sampling_job(job_id: str, job_dir: str, cmd: list[str], report_path: st
 
         # Shared state for watchdog
         start_time = time.time()
-        state_lock = threading.Lock()
+        state_lock = threading.RLock()
         last_output_time = start_time
         last_output_msg = "Sampling started, waiting for output..."
+        current_percent = 25  # we will slowly advance this during the run
 
-        write_progress(job_dir, 25, last_output_msg)
+        def _write_progress(pct: int, msg: str):
+            write_progress(job_dir, pct, msg)
+
+        def _bump_progress(amount: int) -> int:
+            """
+            Increment progress while capped at 85% (finalize step handles 90/100).
+            """
+            nonlocal current_percent
+            with state_lock:
+                current_percent = min(85, current_percent + amount)
+                return current_percent
+
+        _write_progress(current_percent, last_output_msg)
 
         def _drain(pipe, sink, prefix: str):
             nonlocal last_output_time, last_output_msg
@@ -214,8 +229,9 @@ def _run_sampling_job(job_id: str, job_dir: str, cmd: list[str], report_path: st
                     with state_lock:
                         last_output_time = time.time()
                         last_output_msg = (prefix + msg)[:200]
-                    # Keep percent at 25 during run; message updates continuously
-                    write_progress(job_dir, 25, last_output_msg)
+                        pct = _bump_progress(2)
+                        msg_to_write = last_output_msg
+                    _write_progress(pct, msg_to_write)
 
         def _watchdog():
             """
@@ -229,11 +245,10 @@ def _run_sampling_job(job_id: str, job_dir: str, cmd: list[str], report_path: st
                     silence = now - last_output_time
                     elapsed = now - start_time
                 if silence >= 30:
-                    write_progress(
-                        job_dir,
-                        25,
-                        f"Still running... (no output for {int(silence)}s, elapsed {int(elapsed)}s)"
-                    )
+                    with state_lock:
+                        pct = _bump_progress(1)
+                        msg = f"Still running... (no output for {int(silence)}s, elapsed {int(elapsed)}s)"
+                    _write_progress(pct, msg)
 
         t_out = threading.Thread(target=_drain, args=(proc.stdout, stdout_lines, ""), daemon=True)
         t_err = threading.Thread(target=_drain, args=(proc.stderr, stderr_lines, "ERR: "), daemon=True)
@@ -375,6 +390,82 @@ def result(request, job_id: str):
         return JsonResponse({"status": "running"}, status=202)
 
     return JsonResponse(data)
+
+
+@require_GET
+def download_genome_ncbi(request):
+    """
+    Stream a genome ZIP directly from NCBI Datasets using our API key.
+    The key stays server-side; the client only sees a standard file download.
+    """
+    accession = (request.GET.get("accession") or "").strip()
+    if not accession:
+        return HttpResponse("Missing required query parameter: accession", status=400)
+
+    include = (request.GET.get("include") or getattr(settings, "NCBI_DATASETS_INCLUDE", "genome,gff3")).strip()
+    # sanitize include list: keep comma-separated, drop spaces
+    include = ",".join([part for part in include.replace(" ", "").split(",") if part]) or "genome"
+    api_key = getattr(settings, "NCBI_API_KEY", None)
+    if not api_key:
+        return HttpResponse("NCBI_API_KEY not configured on server", status=500)
+
+    base_url = f"https://api.ncbi.nlm.nih.gov/datasets/v2/genome/accession/{accession}/download"
+
+    def fetch(params):
+        full_url = f"{base_url}?{urlparse.urlencode(params)}"
+        return urlrequest.urlopen(full_url, timeout=120)
+
+    # First try with requested include; on 400 retry with genome-only to handle assemblies lacking gff3 etc.
+    params = {"include": include, "api_key": api_key}
+    fallback_params = {"include": "genome", "api_key": api_key}
+
+    try:
+        upstream = fetch(params)
+    except urlerror.HTTPError as exc:
+        if exc.code == 400 and include != "genome":
+            try:
+                upstream = fetch(fallback_params)
+                include = "genome"  # note fallback used
+            except Exception:
+                return HttpResponse(f"Error contacting NCBI after fallback: {exc}", status=502)
+        else:
+            return HttpResponse(f"Error contacting NCBI: {exc}", status=502)
+    except urlerror.URLError as exc:
+        return HttpResponse(f"Error contacting NCBI: {exc}", status=502)
+
+    status = getattr(upstream, "status", 200)
+    if status >= 400:
+        try:
+            detail = upstream.read(500).decode("utf-8", errors="replace")
+        except Exception:
+            detail = "(no body)"
+        return HttpResponse(f"NCBI error {status}: {detail}", status=status)
+
+    filename = f"{accession}.zip"
+
+    def _stream():
+        try:
+            while True:
+                chunk = upstream.read(8192)
+                if not chunk:
+                    break
+                yield chunk
+        finally:
+            try:
+                upstream.close()
+            except Exception:
+                pass
+
+    resp = StreamingHttpResponse(
+        _stream(),
+        content_type=upstream.headers.get_content_type() if hasattr(upstream, "headers") else "application/zip",
+    )
+    resp["Content-Disposition"] = f'attachment; filename="{filename}"'
+    if upstream.headers.get("Content-Length"):
+        resp["Content-Length"] = upstream.headers["Content-Length"]
+    # Expose include used so client can debug
+    resp["X-NCBI-Include"] = include
+    return resp
 
 def run_sampling(request):
     """

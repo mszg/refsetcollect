@@ -160,6 +160,21 @@
     </details>
 </div>
 
+<div class="card mt-4">
+    <div class="card-body">
+        <div class="fw-semibold mb-2">Download genome directly from NCBI</div>
+        <div class="row g-2">
+            <div class="col-md-8">
+                <input type="text" id="ncbi-accession" class="form-control" placeholder="e.g. GCF_000001405.40">
+                <div class="form-text">Uses the server-side NCBI API key; returns the ZIP from NCBI Datasets.</div>
+            </div>
+            <div class="col-md-4 d-grid">
+                <button type="button" class="btn btn-outline-primary" id="ncbi-download-btn">Download</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block extra_js %}
@@ -180,6 +195,9 @@
     const debugCmd = document.getElementById("debug-cmd");
     const debugStdout = document.getElementById("debug-stdout");
     const debugStderr = document.getElementById("debug-stderr");
+
+    const ncbiAccessionInput = document.getElementById("ncbi-accession");
+    const ncbiDownloadBtn = document.getElementById("ncbi-download-btn");
 
     let pollTimer = null;
     let activeJobId = null;
@@ -287,6 +305,16 @@
         activeJobId = data.job_id;
         setProgress(10, "Job started. Waiting for progress...");
         pollTimer = setInterval(() => poll(activeJobId), 1500);
+    });
+
+    ncbiDownloadBtn.addEventListener("click", function() {
+        const acc = (ncbiAccessionInput.value || "").trim();
+        if (!acc) {
+            alert("Please enter an accession (e.g. GCF_000001405.40)");
+            return;
+        }
+        const url = `/download-genome/?accession=${encodeURIComponent(acc)}`;
+        window.location.href = url;
     });
 })();
 </script>
