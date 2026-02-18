@@ -2,6 +2,8 @@
 {% block title %}RefSetCollect — Home{% endblock %}
 
 {% block content %}
+<div class="row justify-content-center">
+  <div class="col-12 col-xl-8 col-lg-9 col-md-10">
 <h1 class="mb-4">RefSetCollect</h1>
 
 
@@ -39,16 +41,13 @@
             {% endif %}
         </select>
         <div class="form-text">
-            Target rank for sampling. Higher ranks (e.g., FAMILY/ORDER) may take longer.
+            Higher ranks (e.g., FAMILY/ORDER) may take longer.
         </div>
     </div>
 
     <div class="mb-3">
         <label for="genomes" class="form-label">Genomes per taxon</label>
         <input type="number" id="genomes" name="genomes" class="form-control" value="1" min="1">
-        <div class="form-text">
-            Recommended for testing: 1. Increasing this increases output size and can increase runtime.
-        </div>
     </div>
 
     <details class="mb-3">
@@ -136,43 +135,29 @@
 
 <div id="result-box" class="alert alert-success mt-4" style="display:none;">
     <div class="fw-semibold mb-2">Sampling finished successfully.</div>
-    <a id="download-link" href="#" target="_blank" class="btn btn-success btn-sm">
+    <a id="download-link" href="#" class="btn btn-success btn-sm" download>
         Download results report (TXT)
     </a>
+    <a id="bulk-download-link" href="#" class="btn btn-outline-success btn-sm ms-2" download>
+        Download selected genomes (ZIP)
+    </a>
+    <div class="text-muted small mt-2">Large genomes can take longer.</div>
 </div>
 
 <div id="report-section" class="mt-4" style="display:none;">
-    <div class="fw-semibold mb-2">Results report</div>
+    <div class="fw-semibold mb-2">Result</div>
     <pre id="report-text" class="p-3 border rounded" style="white-space: pre-wrap;"></pre>
-
-    <details class="mt-3">
-        <summary>Debug details (cmd/stdout/stderr)</summary>
-        <div class="mt-2">
-            <div class="fw-semibold">Command</div>
-            <pre id="debug-cmd" class="p-2 border rounded" style="white-space: pre-wrap;"></pre>
-
-            <div class="fw-semibold mt-3">Stdout</div>
-            <pre id="debug-stdout" class="p-2 border rounded" style="white-space: pre-wrap;"></pre>
-
-            <div class="fw-semibold mt-3">Stderr</div>
-            <pre id="debug-stderr" class="p-2 border rounded" style="white-space: pre-wrap;"></pre>
-        </div>
-    </details>
 </div>
 
-<div class="card mt-4">
-    <div class="card-body">
-        <div class="fw-semibold mb-2">Download genome directly from NCBI</div>
-        <div class="row g-2">
-            <div class="col-md-8">
-                <input type="text" id="ncbi-accession" class="form-control" placeholder="e.g. GCF_000001405.40">
-                <div class="form-text">Uses the server-side NCBI API key; returns the ZIP from NCBI Datasets.</div>
-            </div>
-            <div class="col-md-4 d-grid">
-                <button type="button" class="btn btn-outline-primary" id="ncbi-download-btn">Download</button>
-            </div>
-        </div>
+<!-- Lightweight overlay shown while bulk download is starting -->
+<div id="download-overlay" style="display:none; position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 1050; align-items: center; justify-content: center;">
+    <div class="bg-light p-4 rounded shadow text-center" style="min-width: 260px;">
+        <div class="spinner-border text-primary mb-3" role="status"></div>
+        <div class="fw-semibold">Preparing download…</div>
+        <div class="text-muted small">Large genomes may take a moment to start.</div>
     </div>
+</div>
+  </div>
 </div>
 
 {% endblock %}
@@ -188,16 +173,11 @@
 
     const resultBox = document.getElementById("result-box");
     const downloadLink = document.getElementById("download-link");
+    const bulkDownloadLink = document.getElementById("bulk-download-link");
+    const downloadOverlay = document.getElementById("download-overlay");
 
     const reportSection = document.getElementById("report-section");
     const reportText = document.getElementById("report-text");
-
-    const debugCmd = document.getElementById("debug-cmd");
-    const debugStdout = document.getElementById("debug-stdout");
-    const debugStderr = document.getElementById("debug-stderr");
-
-    const ncbiAccessionInput = document.getElementById("ncbi-accession");
-    const ncbiDownloadBtn = document.getElementById("ncbi-download-btn");
 
     let pollTimer = null;
     let activeJobId = null;
@@ -214,10 +194,8 @@
         resultBox.style.display = "none";
         reportSection.style.display = "none";
         downloadLink.href = "#";
+        bulkDownloadLink.href = "#";
         reportText.textContent = "";
-        debugCmd.textContent = "";
-        debugStdout.textContent = "";
-        debugStderr.textContent = "";
     }
 
     async function fetchJson(url) {
@@ -253,13 +231,12 @@
             if (res.data.report_download_url) {
                 downloadLink.href = res.data.report_download_url;
             }
+            if (activeJobId) {
+                bulkDownloadLink.href = `/download-selected/${activeJobId}/`;
+            }
 
             reportSection.style.display = "block";
             reportText.textContent = res.data.report_text || "(No report text available.)";
-
-            debugCmd.textContent = Array.isArray(res.data.cmd) ? res.data.cmd.join(" ") : (res.data.cmd || "");
-            debugStdout.textContent = res.data.stdout || "";
-            debugStderr.textContent = res.data.stderr || "";
             return;
         }
 
@@ -271,10 +248,6 @@
             setProgress(100, "Failed.");
             reportSection.style.display = "block";
             reportText.textContent = res.data.error || "Sampling failed.";
-
-            debugCmd.textContent = Array.isArray(res.data.cmd) ? res.data.cmd.join(" ") : (res.data.cmd || "");
-            debugStdout.textContent = res.data.stdout || "";
-            debugStderr.textContent = res.data.stderr || "";
             return;
         }
     }
@@ -307,15 +280,32 @@
         pollTimer = setInterval(() => poll(activeJobId), 1500);
     });
 
-    ncbiDownloadBtn.addEventListener("click", function() {
-        const acc = (ncbiAccessionInput.value || "").trim();
-        if (!acc) {
-            alert("Please enter an accession (e.g. GCF_000001405.40)");
+    // Smooth bulk download UX: show overlay while request starts, hide when iframe loads or times out
+    bulkDownloadLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        if (!bulkDownloadLink.href || bulkDownloadLink.href.endsWith("#")) {
             return;
         }
-        const url = `/download-genome/?accession=${encodeURIComponent(acc)}`;
-        window.location.href = url;
+        downloadOverlay.style.display = "flex";
+        const iframe = document.createElement("iframe");
+        iframe.style.display = "none";
+        iframe.onload = () => {
+            downloadOverlay.style.display = "none";
+            iframe.remove();
+        };
+        // Auto-hide shortly after request is kicked off; streaming responses may not trigger onload promptly.
+        const quickHide = setTimeout(() => {
+            downloadOverlay.style.display = "none";
+        }, 3000);
+        const failTimer = setTimeout(() => {
+            downloadOverlay.style.display = "none";
+            iframe.remove();
+        }, 30000); // safety hide after 30s
+        iframe.addEventListener("load", () => clearTimeout(failTimer));
+        iframe.src = bulkDownloadLink.href;
+        document.body.appendChild(iframe);
     });
+
 })();
 </script>
 {% endblock %}

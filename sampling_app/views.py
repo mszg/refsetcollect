@@ -15,6 +15,12 @@ import time
 import hashlib
 from typing import Optional
 from urllib import request as urlrequest, parse as urlparse, error as urlerror
+import tempfile
+import zipfile
+import shutil
+import io
+import json
+import xml.etree.ElementTree as ET
 
 # Local helpers for taxonomy validation
 from sampling_backend import taxon_lookup
@@ -98,16 +104,22 @@ def _cache_dir_for(key: str) -> str:
 
 def _extract_selected_genomes(text: str) -> str:
     """
-    Reduce the verbose stdout from the sampling tool to just the selection
-    section (nodes + genomes). We anchor on the first line that starts with
-    "Selected X genomes" and keep everything after it, skipping noisy
-    bracketed log lines such as [INFO]/[WARN].
+    Strategy
+    --------
+    - Find the first line that starts with "Selected " and contains
+      "genomes". Rephrase it to "Selected <N> genomes" (drop timing and
+      node counts).
+    - After that header, keep only bullet lines that describe genomes
+      (lines beginning with a hyphen after optional whitespace).
+    - Stop once we leave the bullet list so later sections like "Total Time"
+      are omitted.
     """
     if not text:
         return ""
 
     lines = text.splitlines()
-    keep: list[str] = []
+    header = None
+    genome_lines: list[str] = []
     capturing = False
 
     for ln in lines:
@@ -115,22 +127,55 @@ def _extract_selected_genomes(text: str) -> str:
 
         if not capturing:
             if stripped.startswith("Selected ") and "genomes" in stripped:
+                # Try to normalize "Selected X genomes" header
+                count = None
+                try:
+                    count = int(stripped.split()[1])
+                except Exception:
+                    count = None
+
+                if count is not None:
+                    plural = "genomes" if count != 1 else "genome"
+                    header = f"Selected {count} {plural}"
+                else:
+                    header = stripped
+
                 capturing = True
-                keep.append(stripped)
             continue
 
-        # Once capturing, keep lines that describe the selection; drop noisy
-        # bracketed diagnostics except explicit export notices.
-        if stripped.startswith("[") and not stripped.startswith("[Export"):
+        # Once capturing, keep only genome bullet lines.
+        if stripped.startswith("-"):
+            genome_lines.append(stripped)
             continue
 
-        keep.append(stripped)
+        # Stop if we reached the end of the bullet block.
+        if genome_lines and stripped:
+            break
 
-    # Trim trailing blank lines
-    while keep and keep[-1] == "":
-        keep.pop()
+    if not header:
+        return ""
 
-    return "\n".join(keep)
+    if genome_lines:
+        return "\n".join([header, *genome_lines])
+    return header
+
+
+def _extract_accessions(text: str) -> list[str]:
+    """
+    Best-effort parse of assembly accessions (GCF_/GCA_) from the sampling report.
+    """
+    if not text:
+        return []
+    import re
+    pattern = re.compile(r"\b(GC[AF]_[0-9]+\.[0-9]+)\b")
+    seen = set()
+    accs = []
+    for match in pattern.finditer(text):
+        acc = match.group(1)
+        if acc not in seen:
+            seen.add(acc)
+            accs.append(acc)
+    return accs
 
 
 def _slim_result_payload(payload: Optional[dict]) -> Optional[dict]:
@@ -301,18 +346,19 @@ def _run_sampling_job(job_id: str, job_dir: str, cmd: list[str], report_path: st
             })
             return
 
-        # --- FINAL RESULT PAYLOAD (slimmed to selected genomes) ---
+        # --- FINAL RESULT PAYLOAD (slimmed display; full download) ---
         write_progress(job_dir, 90, "Finalizing report...")
 
         # Prefer full stdout transcript as canonical report; fallback to file content
         final_report_text = stdout_text if stdout_text else (report_text or "")
         slim_report_text = _extract_selected_genomes(final_report_text) or final_report_text
+        selected_accessions = _extract_accessions(final_report_text)
 
-        # Always write the slimmed report text to the TXT file (ensures non-empty download)
+        # Ensure the downloadable report contains the full stdout (not just the slimmed view)
         try:
-            if report_path and slim_report_text:
+            if report_path and final_report_text:
                 with open(report_path, "w", encoding="utf-8", errors="replace") as f:
-                    f.write(slim_report_text)
+                    f.write(final_report_text)
         except Exception:
             pass
 
@@ -321,11 +367,12 @@ def _run_sampling_job(job_id: str, job_dir: str, cmd: list[str], report_path: st
             "message": "Sampling finished successfully.",
             "stderr": stderr_text,
             "stdout": slim_report_text,
-            "full_stdout": stdout_text,
+            "full_stdout": final_report_text,
             "cmd": cmd,
             "report_download_url": report_url,
             "report_text": slim_report_text,
             "job_id": job_id,
+            "selected_accessions": selected_accessions,
         }
 
         write_result(job_dir, result_payload)
@@ -467,6 +514,256 @@ def download_genome_ncbi(request):
     resp["X-NCBI-Include"] = include
     return resp
 
+
+def _serve_file(path: str, filename: Optional[str] = None):
+    """
+    Serve a local file as attachment via StreamingHttpResponse.
+    """
+    if not os.path.exists(path):
+        return HttpResponse("File not found", status=404)
+    filename = filename or os.path.basename(path)
+    def _stream():
+        with open(path, "rb") as f:
+            while True:
+                chunk = f.read(8192)
+                if not chunk:
+                    break
+                yield chunk
+    resp = StreamingHttpResponse(_stream(), content_type="application/zip")
+    resp["Content-Disposition"] = f'attachment; filename="{filename}"'
+    resp["Content-Length"] = os.path.getsize(path)
+    return resp
+
+
+def _download_single_ncbi_zip(accession: str, include: str, api_key: str, dest_path: str):
+    """
+    Download a single accession from NCBI Datasets into dest_path (zip file).
+    Uses include list, with fallback to genome-only on HTTP 400 or when no FASTA is found.
+    Verifies that at least one FASTA (*.fna) is present; otherwise retries with genome-only and
+    raises if still missing.
+    """
+    base_url = f"https://api.ncbi.nlm.nih.gov/datasets/v2/genome/accession/{accession}/download"
+    include = ",".join([part for part in include.replace(" ", "").split(",") if part]) or "genome"
+
+    def fetch(params):
+        full_url = f"{base_url}?{urlparse.urlencode(params)}"
+        return urlrequest.urlopen(full_url, timeout=300)
+
+    # Force fully hydrated packages (otherwise API may return metadata-only)
+    base_params = {"hydrated": "FULLY_HYDRATED", "api_key": api_key}
+    params = {**base_params, "include": include}
+    fallback_params = {**base_params, "include": "genome,seq-report"}
+
+    def _http_error_detail(exc: urlerror.HTTPError) -> str:
+        try:
+            body = exc.read(500).decode("utf-8", errors="replace")
+        except Exception:
+            body = "(no body)"
+        return f"{exc.code} {exc.reason}: {body}"
+
+    try:
+        upstream = fetch(params)
+    except urlerror.HTTPError as exc:
+        if exc.code == 400 and include != "genome":
+            # retry genome-only
+            try:
+                upstream = fetch(fallback_params)
+                include = "genome"
+            except urlerror.HTTPError as exc2:
+                raise RuntimeError(f"HTTPError on fallback for {accession}: {_http_error_detail(exc2)}") from exc2
+        else:
+            raise RuntimeError(f"HTTPError for {accession}: {_http_error_detail(exc)}") from exc
+    except urlerror.URLError as exc:
+        raise RuntimeError(f"URLError for {accession}: {exc}") from exc
+
+    with open(dest_path, "wb") as f:
+        while True:
+            chunk = upstream.read(8192)
+            if not chunk:
+                break
+            f.write(chunk)
+    try:
+        upstream.close()
+    except Exception:
+        pass
+
+    valid_exts = (".fna", ".fna.gz", ".fa", ".fa.gz", ".fasta", ".fasta.gz")
+
+    def _extract_assembly_ftp(zf: zipfile.ZipFile) -> Optional[str]:
+        """
+        Try to read assembly_data_report.jsonl to get an FTP/HTTPS path base for manual FASTA fetch.
+        """
+        try:
+            with zf.open("ncbi_dataset/data/assembly_data_report.jsonl") as f:
+                for line in f:
+                    try:
+                        obj = json.loads(line)
+                    except Exception:
+                        continue
+                    ftp = obj.get("refseq_ftp") or obj.get("genbank_ftp") or ""
+                    if ftp:
+                        return ftp
+        except KeyError:
+            return None
+        except Exception:
+            return None
+        return None
+
+    def _manual_fetch_fna(ftp_base: str, zf_path: zipfile.ZipFile) -> bool:
+        """
+        Download genomic FASTA from FTP/HTTPS using paths from assembly report and add to zip.
+        Returns True if added.
+        """
+        # ftp base like ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/...
+        if not ftp_base:
+            return False
+        http_base = ftp_base.replace("ftp://", "https://")
+        fn_candidates = [
+            ftp_base.split("/")[-1] + "_genomic.fna.gz",
+            ftp_base.split("/")[-1] + "_genomic.fna",
+        ]
+        for fname in fn_candidates:
+            url = f"{http_base}/{fname}"
+            try:
+                with urlrequest.urlopen(url, timeout=600) as resp:
+                    data = resp.read()
+                if not data:
+                    continue
+                # Add into zip under ncbi_dataset/data/<accession>/
+                arcname = f"ncbi_dataset/data/{accession}/{fname}"
+                zf_path.writestr(arcname, data)
+                return True
+            except Exception:
+                continue
+        return False
+
+    def _eutils_fetch_ftp(accession: str) -> Optional[str]:
+        """
+        Use NCBI E-utilities to get the GenBank/RefSeq FTP path.
+        """
+        try:
+            esearch_url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=assembly&term={urlparse.quote(accession)}[Assembly+Accession]"
+            with urlrequest.urlopen(esearch_url, timeout=30) as resp:
+                root = ET.fromstring(resp.read())
+            ids = [elem.text for elem in root.findall(".//IdList/Id")]
+            if not ids:
+                return None
+            uid = ids[0]
+            esum_url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=assembly&id={uid}&retmode=json"
+            with urlrequest.urlopen(esum_url, timeout=30) as resp:
+                summary = json.load(resp)
+            doc = summary.get("result", {}).get(uid, {})
+            ftp = doc.get("ftppath_genbank") or doc.get("ftppath_refseq")
+            return ftp
+        except Exception:
+            return None
+
+    def validate_or_retry_for_fna(current_include: str):
+        try:
+            with zipfile.ZipFile(dest_path, "r") as zf:
+                names = zf.namelist()
+                has_fna = any(name.lower().endswith(valid_exts) for name in names)
+        except zipfile.BadZipFile as exc:
+            raise RuntimeError(f"Downloaded file is not a valid zip: {exc}") from exc
+
+        if has_fna:
+            return current_include
+
+        # If no FASTA and we weren't already on genome-only, retry with genome-only
+        if current_include.split(",")[0] != "genome":
+            upstream2 = fetch(fallback_params)
+            with open(dest_path, "wb") as f2:
+                while True:
+                    chunk = upstream2.read(8192)
+                    if not chunk:
+                        break
+                    f2.write(chunk)
+            try:
+                upstream2.close()
+            except Exception:
+                pass
+            # re-validate; if still none, raise
+            with zipfile.ZipFile(dest_path, "a") as zf2:
+                names2 = zf2.namelist()
+                if any(name.lower().endswith(valid_exts) for name in names2):
+                    return "genome"
+                # Try manual fetch via FTP links in assembly report
+                ftp_base = _extract_assembly_ftp(zf2)
+                if ftp_base and _manual_fetch_fna(ftp_base, zf2):
+                    return "genome"
+                # Try eutils to get FTP path and fetch
+                ftp_base2 = _eutils_fetch_ftp(accession)
+                if ftp_base2 and _manual_fetch_fna(ftp_base2, zf2):
+                    return "genome"
+
+        # As a last resort, attempt manual fetch on the already-downloaded (non-fallback) zip
+        try:
+            with zipfile.ZipFile(dest_path, "a") as zf3:
+                ftp_base = _extract_assembly_ftp(zf3)
+                if ftp_base and _manual_fetch_fna(ftp_base, zf3):
+                    return current_include
+                ftp_base2 = _eutils_fetch_ftp(accession)
+                if ftp_base2 and _manual_fetch_fna(ftp_base2, zf3):
+                    return current_include
+        except Exception:
+            pass
+
+        raise RuntimeError("No FASTA (.fna/.fa/.fasta) files found in NCBI package after fallback and FTP fetch.")
+
+    return validate_or_retry_for_fna(include)
+
+
+@require_GET
+def download_selected_genomes(request, job_id: str):
+    """
+    Bundle all selected genomes for a completed job into a single ZIP.
+    Each accession is fetched from NCBI Datasets using the configured API key.
+    """
+    include = (request.GET.get("include") or getattr(settings, "NCBI_DATASETS_INCLUDE", "genome,gff3")).strip()
+    include = ",".join([part for part in include.replace(" ", "").split(",") if part]) or "genome"
+    api_key = getattr(settings, "NCBI_API_KEY", None)
+    if not api_key:
+        return HttpResponse("NCBI_API_KEY not configured on server", status=500)
+
+    # Locate job result to get selected accessions
+    email_dir = create_email_directory("guest")
+    job_dir = os.path.join(email_dir, job_id)
+    data = read_result(job_dir)
+    if not data or data.get("status") != "done":
+        return HttpResponse("Job not finished or not found", status=404)
+
+    accs = data.get("selected_accessions") or []
+    if not accs:
+        return HttpResponse("No accessions found in job output.", status=400)
+
+    # Cache: if already built, serve it
+    bundle_path = os.path.join(job_dir, "selected_genomes.zip")
+    if os.path.exists(bundle_path) and os.path.getsize(bundle_path) > 0:
+        return _serve_file(bundle_path, filename=f"{job_id}_selected_genomes.zip")
+
+    tmp_dir = tempfile.mkdtemp(prefix="ncbi_bulk_", dir=job_dir)
+    try:
+        # Download each accession as {acc}.zip
+        for acc in accs:
+            dest = os.path.join(tmp_dir, f"{acc}.zip")
+            try:
+                _download_single_ncbi_zip(acc, include, api_key, dest)
+            except Exception as exc:
+                return HttpResponse(f"Failed to download {acc}: {exc}", status=502)
+
+        # Bundle all into one zip
+        with zipfile.ZipFile(bundle_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+            for fname in os.listdir(tmp_dir):
+                full = os.path.join(tmp_dir, fname)
+                zf.write(full, arcname=fname)
+
+        return _serve_file(bundle_path, filename=f"{job_id}_selected_genomes.zip")
+    finally:
+        try:
+            shutil.rmtree(tmp_dir)
+        except Exception:
+            pass
+
 def run_sampling(request):
     """
     Starts a sampling run. Returns immediately with job_id.
@@ -494,11 +791,6 @@ def run_sampling(request):
             resolved_records = taxon_lookup.resolve_to_taxids(taxon, taxonomy_path)
             if not resolved_records:
                 validation_error = "Unknown taxon name/ID (not found in taxonomy)."
-            else:
-                # If rank specified, ensure at least one match has that rank
-                rank_upper = rank.upper()
-                if not any((rec.get("rank") or "").upper() == rank_upper for rec in resolved_records):
-                    validation_error = "Taxon found but rank does not match selected rank."
         else:
             validation_error = "Taxonomy reference file missing on server."
     except Exception as exc:
@@ -587,6 +879,11 @@ def run_sampling(request):
                 cached = json.load(f)
 
             cached = _slim_result_payload(cached)
+
+            # Ensure selected_accessions exists even for older cache entries
+            if "selected_accessions" not in cached:
+                cached_report = cached.get("full_stdout") or cached.get("report_text") or ""
+                cached["selected_accessions"] = _extract_accessions(cached_report)
 
             write_progress(job_dir, 100, "Done (cached result).")
             write_result(job_dir, cached)
