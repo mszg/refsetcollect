@@ -18,3 +18,5 @@ staticfiles/
 .vscode/
 .idea/
 
+*.jsonl
+/media
