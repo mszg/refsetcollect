@@ -17,4 +17,12 @@ staticfiles/
 # IDE
 .vscode/
 .idea/
+.env
+.env.*
 
+taxonomy_all_new.jsonl
+media/guest/20260217-085131-Qe2qe2I3jN/result.json
+*.txt
+*.json
+*.zip
+*.jsonl
