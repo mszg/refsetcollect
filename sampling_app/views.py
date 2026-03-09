@@ -202,7 +202,7 @@ def _slim_result_payload(payload: Optional[dict]) -> Optional[dict]:
 
 def _run_sampling_job(job_id: str, job_dir: str, cmd: list[str], report_path: str):
     """
-    Runs Helene's sampling tool in a background thread.
+    Runs the sampling tool in a background thread.
     Canonical output: plain-text report written via --out.
 
     Key behaviors:
@@ -767,7 +767,7 @@ def download_selected_genomes(request, job_id: str):
 def run_sampling(request):
     """
     Starts a sampling run. Returns immediately with job_id.
-    Canonical output is a report file written by Helene's tool via --out.
+    Canonical output is a report file written by the sampling tool via --out.
     """
     if request.method != "POST":
         return HttpResponse("Invalid request", status=405)
@@ -806,7 +806,7 @@ def run_sampling(request):
     except Exception:
         return JsonResponse({"error": "Genomes per taxon must be an integer >= 1."}, status=400)
 
-    # Advanced inputs (mapped to Helene's actual CLI flags)
+    # Advanced inputs mapped to CLI flags
     tree = request.POST.get("tree", "phantom").strip() or "phantom"
     method = request.POST.get("method", "DFS").strip() or "DFS"
     prefer_reference = request.POST.get("prefer_reference") is not None
