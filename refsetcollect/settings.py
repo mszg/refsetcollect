@@ -46,6 +46,11 @@ sys.path.append(str(BASE_DIR_BACKEND))
 
 # Location of the NCBI taxonomy JSONL file used for fast name -> TaxID validation
 TAXONOMY_JSON_PATH = os.environ.get("TAXONOMY_JSON_PATH", str(BASE_DIR / "taxonomy_all_new.jsonl"))
+# Optional prebuilt SQLite lookup table (name + tax_id) for faster validation.
+TAXONOMY_LOOKUP_SQLITE_PATH = os.environ.get(
+    "TAXONOMY_LOOKUP_SQLITE_PATH",
+    str(BASE_DIR / "taxonomy_name_taxid.sqlite3"),
+)
 
 # NCBI Datasets API
 # Prefer to set via environment variable NCBI_API_KEY to avoid hard-coding secrets.

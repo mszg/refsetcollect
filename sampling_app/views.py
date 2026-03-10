@@ -784,11 +784,18 @@ def run_sampling(request):
 
     # Pre-validate taxon against local taxonomy JSONL to provide fast feedback
     taxonomy_path = getattr(settings, "TAXONOMY_JSON_PATH", None)
+    taxonomy_lookup_sqlite_path = getattr(settings, "TAXONOMY_LOOKUP_SQLITE_PATH", None)
     resolved_records = []
     validation_error = None
     try:
-        if taxonomy_path and os.path.exists(taxonomy_path):
-            resolved_records = taxon_lookup.resolve_to_taxids(taxon, taxonomy_path)
+        if (taxonomy_lookup_sqlite_path and os.path.exists(taxonomy_lookup_sqlite_path)) or (
+            taxonomy_path and os.path.exists(taxonomy_path)
+        ):
+            resolved_records = taxon_lookup.resolve_to_taxids(
+                taxon,
+                taxonomy_path=taxonomy_path,
+                sqlite_path=taxonomy_lookup_sqlite_path,
+            )
             if not resolved_records:
                 validation_error = "Unknown taxon name/ID (not found in taxonomy)."
         else:
