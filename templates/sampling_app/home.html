@@ -2,6 +2,30 @@
 {% block title %}RefSetCollect — Home{% endblock %}
 
 {% block content %}
+<style>
+  .taxon-autocomplete {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 1100;
+    max-height: 220px;
+    overflow-y: auto;
+    background: #eef6ff;
+    border: 1px solid #9ec5fe;
+    box-shadow: 0 10px 24px rgba(13, 110, 253, 0.14);
+  }
+
+  .taxon-autocomplete .dropdown-item {
+    color: #0f2d52;
+  }
+
+  .taxon-autocomplete .dropdown-item:hover,
+  .taxon-autocomplete .dropdown-item:focus {
+    background-color: #dbe9ff;
+    color: #0a1f3d;
+  }
+</style>
 <div class="row justify-content-center">
   <div class="col-12 col-xl-8 col-lg-9 col-md-10">
 <h1 class="mb-4">RefSetCollect</h1>
@@ -10,7 +34,7 @@
 <form id="sampling-form" method="POST" class="mb-4">
     {% csrf_token %}
 
-    <div class="mb-3">
+    <div class="mb-3 position-relative">
         <label for="taxon" class="form-label">Taxon (query)</label>
         <input
             type="text"
@@ -18,8 +42,15 @@
             name="taxon"
             class="form-control"
             placeholder="e.g. Escherichia coli (or TaxID 562)"
+            autocomplete="off"
+            aria-autocomplete="list"
+            aria-expanded="false"
+            aria-controls="taxon-suggestions"
             required
         >
+        <div id="taxon-suggestions-wrap" class="taxon-autocomplete dropdown-menu" style="display:none;" role="listbox">
+            <div id="taxon-suggestions"></div>
+        </div>
     </div>
 
     <div class="mb-3">
@@ -167,6 +198,9 @@
 (function() {
     const form = document.getElementById("sampling-form");
     const runBtn = document.getElementById("run-btn");
+    const taxonInput = document.getElementById("taxon");
+    const taxonSuggestionsWrap = document.getElementById("taxon-suggestions-wrap");
+    const taxonSuggestions = document.getElementById("taxon-suggestions");
 
     const progressBar = document.getElementById("progress-bar");
     const progressMsg = document.getElementById("progress-msg");
@@ -182,6 +216,35 @@
     let pollTimer = null;
     let activeJobId = null;
 
+    function clearTaxonSuggestions() {
+        taxonSuggestions.innerHTML = "";
+        taxonSuggestionsWrap.style.display = "none";
+        taxonSuggestionsWrap.classList.remove("show");
+        taxonInput.setAttribute("aria-expanded", "false");
+    }
+
+    function renderTaxonSuggestions(items) {
+        clearTaxonSuggestions();
+        if (!Array.isArray(items) || items.length === 0) {
+            return;
+        }
+        items.forEach((item) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "dropdown-item text-wrap";
+            btn.textContent = item;
+            btn.addEventListener("click", () => {
+                taxonInput.value = item;
+                clearTaxonSuggestions();
+                taxonInput.focus();
+            });
+            taxonSuggestions.appendChild(btn);
+        });
+        taxonSuggestionsWrap.style.display = "block";
+        taxonSuggestionsWrap.classList.add("show");
+        taxonInput.setAttribute("aria-expanded", "true");
+    }
+
     function setProgress(pct, msg) {
         const clamped = Math.max(0, Math.min(100, Number(pct || 0)));
         progressBar.style.width = clamped + "%";
@@ -196,6 +259,7 @@
         downloadLink.href = "#";
         bulkDownloadLink.href = "#";
         reportText.textContent = "";
+        clearTaxonSuggestions();
     }
 
     async function fetchJson(url) {
@@ -272,12 +336,25 @@
             setProgress(100, "Failed.");
             const msg = (data && (data.error || data.message)) ? (data.error || data.message) : "Request failed.";
             progressMsg.textContent = msg;
+            renderTaxonSuggestions(data && data.suggestions ? data.suggestions : []);
             return;
         }
 
         activeJobId = data.job_id;
         setProgress(10, "Job started. Waiting for progress...");
         pollTimer = setInterval(() => poll(activeJobId), 1500);
+    });
+
+    taxonInput.addEventListener("input", function() {
+        if (taxonSuggestionsWrap.style.display !== "none") {
+            clearTaxonSuggestions();
+        }
+    });
+
+    document.addEventListener("click", function(e) {
+        if (!taxonSuggestionsWrap.contains(e.target) && e.target !== taxonInput) {
+            clearTaxonSuggestions();
+        }
     });
 
     // Smooth bulk download UX: show overlay while request starts, hide when iframe loads or times out

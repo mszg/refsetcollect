@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from difflib import SequenceMatcher
 from collections import defaultdict
 from functools import lru_cache
 from typing import Iterable, List, Dict, Any
@@ -99,6 +100,81 @@ def _resolve_from_sqlite(query: str | int, sqlite_path: str) -> List[Dict[str, A
             (key,),
         ).fetchall()
         return [{"tax_id": int(tax_id), "name": name, "rank": None} for tax_id, name in rows]
+
+
+def suggest_similar_taxa(
+    query: str,
+    sqlite_path: str | None,
+    limit: int = 5,
+    min_score: float = 0.82,
+) -> List[str]:
+    """Suggest likely taxon names for misspelled input using the SQLite lookup table."""
+    if not query or not sqlite_path or not os.path.exists(sqlite_path):
+        return []
+
+    key = _normalise_name(query)
+    if not key or key.isdigit():
+        return []
+
+    max_candidates = 8000
+    preferred = []
+    fallback = []
+
+    with sqlite3.connect(sqlite_path) as conn:
+        conn.row_factory = sqlite3.Row
+
+        p3 = key[:3]
+        min_len = max(1, len(key) - 4)
+        max_len = len(key) + 4
+
+        preferred_rows = conn.execute(
+            """
+            SELECT DISTINCT name, name_normalized
+            FROM taxon_name_map
+            WHERE name_normalized LIKE ?
+              AND LENGTH(name_normalized) BETWEEN ? AND ?
+            LIMIT ?
+            """,
+            (f"{p3}%", min_len, max_len, max_candidates),
+        ).fetchall()
+        preferred = [(r["name"], r["name_normalized"]) for r in preferred_rows]
+
+        if len(preferred) < 100:
+            p1 = key[:1]
+            fallback_rows = conn.execute(
+                """
+                SELECT DISTINCT name, name_normalized
+                FROM taxon_name_map
+                WHERE SUBSTR(name_normalized, 1, 1) = ?
+                  AND LENGTH(name_normalized) BETWEEN ? AND ?
+                LIMIT ?
+                """,
+                (p1, min_len, max_len, max_candidates),
+            ).fetchall()
+            fallback = [(r["name"], r["name_normalized"]) for r in fallback_rows]
+
+    scored = []
+    seen_norm = set()
+    for display_name, norm_name in preferred + fallback:
+        if not norm_name or norm_name in seen_norm:
+            continue
+        seen_norm.add(norm_name)
+        score = SequenceMatcher(None, key, norm_name).ratio()
+        if score >= min_score:
+            scored.append((score, display_name))
+
+    scored.sort(key=lambda x: (-x[0], x[1]))
+
+    suggestions = []
+    seen_display = set()
+    for _, name in scored:
+        if name in seen_display:
+            continue
+        seen_display.add(name)
+        suggestions.append(name)
+        if len(suggestions) >= max(1, limit):
+            break
+    return suggestions
 
 
 def resolve_to_taxids(

@@ -785,6 +785,7 @@ def run_sampling(request):
     # Pre-validate taxon against local taxonomy JSONL to provide fast feedback
     taxonomy_path = getattr(settings, "TAXONOMY_JSON_PATH", None)
     taxonomy_lookup_sqlite_path = getattr(settings, "TAXONOMY_LOOKUP_SQLITE_PATH", None)
+    suggestions = []
     resolved_records = []
     validation_error = None
     try:
@@ -804,7 +805,22 @@ def run_sampling(request):
         validation_error = f"Taxonomy validation error: {exc}"
 
     if validation_error:
-        return JsonResponse({"error": validation_error}, status=400)
+        if taxonomy_lookup_sqlite_path and os.path.exists(taxonomy_lookup_sqlite_path):
+            try:
+                suggestions = taxon_lookup.suggest_similar_taxa(
+                    taxon, taxonomy_lookup_sqlite_path, limit=3
+                )
+            except Exception:
+                suggestions = []
+
+        if suggestions:
+            if len(suggestions) == 1:
+                validation_error = f'{validation_error} Did you mean "{suggestions[0]}"?'
+            else:
+                quoted = ", ".join(f'"{s}"' for s in suggestions[:-1])
+                validation_error = f'{validation_error} Did you mean {quoted}, or "{suggestions[-1]}"?'
+
+        return JsonResponse({"error": validation_error, "suggestions": suggestions}, status=400)
 
     try:
         per_taxon = int(genomes)

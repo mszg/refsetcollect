@@ -4,6 +4,7 @@ sampling_backend/taxonomy_all_new.jsonl
 
 # Python
 venv/
+.venv/
 __pycache__/
 *.pyc
 
