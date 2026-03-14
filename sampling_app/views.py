@@ -786,6 +786,7 @@ def run_sampling(request):
     taxonomy_path = getattr(settings, "TAXONOMY_JSON_PATH", None)
     taxonomy_lookup_sqlite_path = getattr(settings, "TAXONOMY_LOOKUP_SQLITE_PATH", None)
     suggestions = []
+    suggestion_details = []
     resolved_records = []
     validation_error = None
     try:
@@ -798,29 +799,49 @@ def run_sampling(request):
                 sqlite_path=taxonomy_lookup_sqlite_path,
             )
             if not resolved_records:
-                validation_error = "Unknown taxon name/ID (not found in taxonomy)."
+                validation_error = "Unknown taxon name or taxID. Did you mean one of the following:"
+            elif not str(taxon).isdigit() and len(resolved_records) > 1:
+                validation_error = "Multiple taxa match this name. Please choose one from below:"
+                seen_pairs = set()
+                for rec in resolved_records:
+                    name = rec.get("name")
+                    tax_id = rec.get("tax_id")
+                    if not name or tax_id is None:
+                        continue
+                    pair = (name, int(tax_id))
+                    if pair in seen_pairs:
+                        continue
+                    seen_pairs.add(pair)
+                    suggestion_details.append({"name": name, "tax_id": int(tax_id)})
+                    suggestions.append(name)
         else:
             validation_error = "Taxonomy reference file missing on server."
     except Exception as exc:
         validation_error = f"Taxonomy validation error: {exc}"
 
     if validation_error:
-        if taxonomy_lookup_sqlite_path and os.path.exists(taxonomy_lookup_sqlite_path):
+        if (
+            not suggestion_details
+            and taxonomy_lookup_sqlite_path
+            and os.path.exists(taxonomy_lookup_sqlite_path)
+        ):
             try:
-                suggestions = taxon_lookup.suggest_similar_taxa(
-                    taxon, taxonomy_lookup_sqlite_path, limit=3
+                suggestion_details = taxon_lookup.suggest_similar_taxa(
+                    taxon, taxonomy_lookup_sqlite_path, limit=3, include_taxid=True
                 )
+                suggestions = [s["name"] for s in suggestion_details if s.get("name")]
             except Exception:
                 suggestions = []
+                suggestion_details = []
 
-        if suggestions:
-            if len(suggestions) == 1:
-                validation_error = f'{validation_error} Did you mean "{suggestions[0]}"?'
-            else:
-                quoted = ", ".join(f'"{s}"' for s in suggestions[:-1])
-                validation_error = f'{validation_error} Did you mean {quoted}, or "{suggestions[-1]}"?'
-
-        return JsonResponse({"error": validation_error, "suggestions": suggestions}, status=400)
+        return JsonResponse(
+            {
+                "error": validation_error,
+                "suggestions": suggestions,
+                "suggestion_details": suggestion_details,
+            },
+            status=400,
+        )
 
     try:
         per_taxon = int(genomes)

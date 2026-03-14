@@ -107,7 +107,8 @@ def suggest_similar_taxa(
     sqlite_path: str | None,
     limit: int = 5,
     min_score: float = 0.82,
-) -> List[str]:
+    include_taxid: bool = False,
+) -> List[Any]:
     """Suggest likely taxon names for misspelled input using the SQLite lookup table."""
     if not query or not sqlite_path or not os.path.exists(sqlite_path):
         return []
@@ -129,7 +130,7 @@ def suggest_similar_taxa(
 
         preferred_rows = conn.execute(
             """
-            SELECT DISTINCT name, name_normalized
+            SELECT DISTINCT name, name_normalized, tax_id
             FROM taxon_name_map
             WHERE name_normalized LIKE ?
               AND LENGTH(name_normalized) BETWEEN ? AND ?
@@ -137,13 +138,13 @@ def suggest_similar_taxa(
             """,
             (f"{p3}%", min_len, max_len, max_candidates),
         ).fetchall()
-        preferred = [(r["name"], r["name_normalized"]) for r in preferred_rows]
+        preferred = [(r["name"], r["name_normalized"], r["tax_id"]) for r in preferred_rows]
 
         if len(preferred) < 100:
             p1 = key[:1]
             fallback_rows = conn.execute(
                 """
-                SELECT DISTINCT name, name_normalized
+                SELECT DISTINCT name, name_normalized, tax_id
                 FROM taxon_name_map
                 WHERE SUBSTR(name_normalized, 1, 1) = ?
                   AND LENGTH(name_normalized) BETWEEN ? AND ?
@@ -151,23 +152,36 @@ def suggest_similar_taxa(
                 """,
                 (p1, min_len, max_len, max_candidates),
             ).fetchall()
-            fallback = [(r["name"], r["name_normalized"]) for r in fallback_rows]
+            fallback = [(r["name"], r["name_normalized"], r["tax_id"]) for r in fallback_rows]
 
     scored = []
     seen_norm = set()
-    for display_name, norm_name in preferred + fallback:
+    for display_name, norm_name, tax_id in preferred + fallback:
         if not norm_name or norm_name in seen_norm:
             continue
         seen_norm.add(norm_name)
         score = SequenceMatcher(None, key, norm_name).ratio()
         if score >= min_score:
-            scored.append((score, display_name))
+            scored.append((score, display_name, tax_id))
 
-    scored.sort(key=lambda x: (-x[0], x[1]))
+    scored.sort(key=lambda x: (-x[0], x[1], x[2]))
+
+    if include_taxid:
+        suggestions_with_taxid = []
+        seen_pairs = set()
+        for _, name, tax_id in scored:
+            pair = (name, int(tax_id))
+            if pair in seen_pairs:
+                continue
+            seen_pairs.add(pair)
+            suggestions_with_taxid.append({"name": name, "tax_id": int(tax_id)})
+            if len(suggestions_with_taxid) >= max(1, limit):
+                break
+        return suggestions_with_taxid
 
     suggestions = []
     seen_display = set()
-    for _, name in scored:
+    for _, name, _ in scored:
         if name in seen_display:
             continue
         seen_display.add(name)

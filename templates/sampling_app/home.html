@@ -11,19 +11,19 @@
     z-index: 1100;
     max-height: 220px;
     overflow-y: auto;
-    background: #eef6ff;
-    border: 1px solid #9ec5fe;
-    box-shadow: 0 10px 24px rgba(13, 110, 253, 0.14);
+    background: #fff1f3;
+    border: 1px solid #f1aeb5;
+    box-shadow: 0 10px 24px rgba(176, 42, 55, 0.18);
   }
 
   .taxon-autocomplete .dropdown-item {
-    color: #0f2d52;
+    color: #58151c;
   }
 
   .taxon-autocomplete .dropdown-item:hover,
   .taxon-autocomplete .dropdown-item:focus {
-    background-color: #dbe9ff;
-    color: #0a1f3d;
+    background-color: #f8d7da;
+    color: #2c0b0e;
   }
 </style>
 <div class="row justify-content-center">
@@ -48,6 +48,7 @@
             aria-controls="taxon-suggestions"
             required
         >
+        <div id="taxon-error" class="form-text text-danger mt-1" style="display:none;"></div>
         <div id="taxon-suggestions-wrap" class="taxon-autocomplete dropdown-menu" style="display:none;" role="listbox">
             <div id="taxon-suggestions"></div>
         </div>
@@ -199,6 +200,7 @@
     const form = document.getElementById("sampling-form");
     const runBtn = document.getElementById("run-btn");
     const taxonInput = document.getElementById("taxon");
+    const taxonError = document.getElementById("taxon-error");
     const taxonSuggestionsWrap = document.getElementById("taxon-suggestions-wrap");
     const taxonSuggestions = document.getElementById("taxon-suggestions");
 
@@ -216,6 +218,16 @@
     let pollTimer = null;
     let activeJobId = null;
 
+    function setTaxonError(msg) {
+        if (!msg) {
+            taxonError.style.display = "none";
+            taxonError.textContent = "";
+            return;
+        }
+        taxonError.textContent = msg;
+        taxonError.style.display = "block";
+    }
+
     function clearTaxonSuggestions() {
         taxonSuggestions.innerHTML = "";
         taxonSuggestionsWrap.style.display = "none";
@@ -229,12 +241,18 @@
             return;
         }
         items.forEach((item) => {
+            const isObj = item && typeof item === "object";
+            const name = isObj ? (item.name || "") : String(item || "");
+            if (!name) {
+                return;
+            }
+            const taxId = isObj && item.tax_id !== undefined && item.tax_id !== null ? String(item.tax_id) : "";
             const btn = document.createElement("button");
             btn.type = "button";
             btn.className = "dropdown-item text-wrap";
-            btn.textContent = item;
+            btn.textContent = taxId ? `${name} (taxID: ${taxId})` : name;
             btn.addEventListener("click", () => {
-                taxonInput.value = item;
+                taxonInput.value = taxId || name;
                 clearTaxonSuggestions();
                 taxonInput.focus();
             });
@@ -259,6 +277,7 @@
         downloadLink.href = "#";
         bulkDownloadLink.href = "#";
         reportText.textContent = "";
+        setTaxonError("");
         clearTaxonSuggestions();
     }
 
@@ -335,8 +354,29 @@
             runBtn.disabled = false;
             setProgress(100, "Failed.");
             const msg = (data && (data.error || data.message)) ? (data.error || data.message) : "Request failed.";
-            progressMsg.textContent = msg;
-            renderTaxonSuggestions(data && data.suggestions ? data.suggestions : []);
+            const hasTaxonSuggestions = Boolean(
+                data && (
+                    (Array.isArray(data.suggestion_details) && data.suggestion_details.length > 0) ||
+                    (Array.isArray(data.suggestions) && data.suggestions.length > 0)
+                )
+            );
+            const isTaxonValidation = msg.startsWith("Unknown taxon name/ID")
+                || msg.startsWith("Multiple taxa match this name")
+                || msg.startsWith("Taxonomy validation error")
+                || msg.startsWith("Taxonomy reference file missing")
+                || hasTaxonSuggestions;
+            if (isTaxonValidation) {
+                setTaxonError(msg);
+                progressMsg.textContent = "Please correct the taxon input above and submit again.";
+            } else {
+                setTaxonError("");
+                progressMsg.textContent = msg;
+            }
+            renderTaxonSuggestions(
+                data && data.suggestion_details
+                    ? data.suggestion_details
+                    : (data && data.suggestions ? data.suggestions : [])
+            );
             return;
         }
 
@@ -346,13 +386,8 @@
     });
 
     taxonInput.addEventListener("input", function() {
+        setTaxonError("");
         if (taxonSuggestionsWrap.style.display !== "none") {
-            clearTaxonSuggestions();
-        }
-    });
-
-    document.addEventListener("click", function(e) {
-        if (!taxonSuggestionsWrap.contains(e.target) && e.target !== taxonInput) {
             clearTaxonSuggestions();
         }
     });
