@@ -8,7 +8,6 @@ import datetime
 import random
 import string
 import json
-import sys
 import subprocess
 import threading
 import time
@@ -948,8 +947,7 @@ def run_sampling(request):
         sampling_py = str(settings.BASE_DIR_BACKEND / "sampling.py")
 
         cmd = [
-            sys.executable,
-            "-u",  # IMPORTANT: unbuffered output
+            *settings.SAMPLING_LAUNCHER,
             sampling_py,
             "--tree", tree,
             "--out", report_path,
@@ -978,6 +976,10 @@ def run_sampling(request):
 
         if exclude_file_path:
             cmd.extend(["--exclude_file", exclude_file_path])
+
+        # If the launcher is a Python executable, ensure child output stays unbuffered.
+        if cmd and os.path.basename(cmd[0]).startswith("python"):
+            cmd.insert(len(settings.SAMPLING_LAUNCHER), "-u")
 
         write_progress(job_dir, 10, "Job queued. Starting...")
 

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import shlex
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -43,6 +44,16 @@ from pathlib import Path
 
 BASE_DIR_BACKEND = BASE_DIR / "sampling_backend"
 sys.path.append(str(BASE_DIR_BACKEND))
+
+# Command prefix used to launch the sampling backend subprocess.
+# Default keeps current behavior by using Django's Python interpreter.
+# On the server this can point to either:
+# - a dedicated Python binary, e.g. /opt/refsetcollect-tool/venv314/bin/python
+# - a wrapper script, e.g. /opt/refsetcollect-tool/run_sampling.sh
+# The launcher is expected to accept the sampling.py path as its first argument.
+SAMPLING_LAUNCHER = shlex.split(
+    os.environ.get("SAMPLING_LAUNCHER", sys.executable)
+) or [sys.executable]
 
 # Location of the NCBI taxonomy JSONL file used for fast name -> TaxID validation
 TAXONOMY_JSON_PATH = os.environ.get("TAXONOMY_JSON_PATH", str(BASE_DIR / "taxonomy_all_new.jsonl"))
